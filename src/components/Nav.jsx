@@ -1,18 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Nav.css";
 
-const links = ["films", "texts", "design", "studies", "about", "contact"];
+const LINKS = ["films", "texts", "design", "studies", "about", "contact"];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
+  const sectionsRef = useRef([]);
 
   useEffect(() => {
+    sectionsRef.current = LINKS
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-      const sections = links.map(id => document.getElementById(id)).filter(Boolean);
       let current = "";
-      sections.forEach(section => {
+      sectionsRef.current.forEach((section) => {
         if (window.scrollY >= section.offsetTop - 200) {
           current = section.id;
         }
@@ -34,7 +38,7 @@ export default function Nav() {
         <span>Ryo Oshima</span>
       </a>
       <ul className="nav-links">
-        {links.map((id) => (
+        {LINKS.map((id) => (
           <li key={id}>
             <a
               href={"#" + id}

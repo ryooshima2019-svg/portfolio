@@ -6,7 +6,7 @@ import { textsFullData, featuredFull } from "./textsData";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const featured = {
+const FEATURED = {
   id: "000",
   title: "砂漠を走る青年よ",
   year: "2026",
@@ -14,7 +14,7 @@ const featured = {
   full: featuredFull,
 };
 
-const texts = [
+const TEXTS = [
   { id: "001", title: "履歴書には書けない事", year: "2026", genre: "短編小説", excerpt: "静かな面接会場にどこか疎外感を感じながら、周りと同じくお行儀よく座っている。そんな自分がどうにも可笑しくて、口の端が上がるのを必死に抑えている。" },
   { id: "002", title: "二月三十日", year: "2026", genre: "短編小説", excerpt: "露悪は柑橘の匂いがする。手が震えている。この症状の始まりさえ知らないのに私はいつの間にやらそいつと二人で仲良く共生している。" },
   { id: "003", title: "生きる", year: "2026", genre: "短編小説", excerpt: "朝起きてカーテンを開く。快晴。ついてる。そう感じた。そんな感覚は久しぶりだった気がする。" },
@@ -30,21 +30,18 @@ export default function Texts() {
 
   useEffect(() => {
     const pieces = ref.current.querySelectorAll(".text-piece");
-    pieces.forEach((piece) => {
+    const tweens = Array.from(pieces).map((piece) =>
       gsap.fromTo(piece,
         { x: -30, opacity: 0 },
         { x: 0, opacity: 1, duration: 1, ease: "power3.out",
           scrollTrigger: { trigger: piece, start: "top 80%" } }
-      );
-    });
+      )
+    );
+    return () => tweens.forEach((tween) => tween.scrollTrigger?.kill());
   }, []);
 
   useEffect(() => {
-    if (modal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = modal ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [modal]);
 
@@ -55,11 +52,11 @@ export default function Texts() {
 
       <div className="text-featured">
         <div className="text-featured-label">Featured</div>
-        <div className="text-featured-title">{featured.title}</div>
-        <div className="text-featured-meta">{featured.year} · {featured.genre}</div>
-        {featuredOpen && featured.full && (
+        <div className="text-featured-title">{FEATURED.title}</div>
+        <div className="text-featured-meta">{FEATURED.year} · {FEATURED.genre}</div>
+        {featuredOpen && FEATURED.full && (
           <div className="text-featured-body">
-            {featured.full.split("\n\n").map((para, i) => (
+            {FEATURED.full.split("\n\n").map((para, i) => (
               <p key={i}>{para}</p>
             ))}
           </div>
@@ -80,7 +77,7 @@ export default function Texts() {
       </div>
 
       <div className="text-list">
-        {texts.map((t) => (
+        {TEXTS.map((t) => (
           <div key={t.id} className="text-piece">
             <div className="text-number">{t.id}</div>
             <div className="text-body">

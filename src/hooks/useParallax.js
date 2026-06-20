@@ -9,7 +9,7 @@ export function useParallax(speed = 0.3) {
 
   useEffect(() => {
     if (!ref.current) return;
-    gsap.to(ref.current, {
+    const tween = gsap.to(ref.current, {
       y: () => ref.current.offsetHeight * speed * -1,
       ease: "none",
       scrollTrigger: {
@@ -19,7 +19,8 @@ export function useParallax(speed = 0.3) {
         scrub: true,
       },
     });
-  }, []);
+    return () => tween.scrollTrigger?.kill();
+  }, [speed]);
 
   return ref;
 }

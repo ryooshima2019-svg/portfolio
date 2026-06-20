@@ -104,7 +104,3 @@
   user-select:none;
   pointer-events:none;
 }
-
-.hero-memory.faded {
-  color: rgba(217, 207, 200, 0.7);
-}

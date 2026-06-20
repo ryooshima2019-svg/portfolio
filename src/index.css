@@ -194,16 +194,10 @@ section {
   margin-bottom: 1.4rem;
 }
 
-.dust-overlay {
-  position: fixed;
-  inset: 0;
-  background-image: url('/images/dusty.jpg');
-  background-size: cover;
-  background-position: center;
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0.12;
-  mix-blend-mode: screen;
+section {
+  position: relative;
+  overflow: hidden;
+  padding: 8rem 4rem;
 }
 
 .dust-overlay {

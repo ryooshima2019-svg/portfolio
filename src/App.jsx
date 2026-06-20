@@ -20,33 +20,27 @@ export default function App() {
 
   return (
     <>
-  <Cursor />
+      <Cursor />
+      <Spotlight />
+      <div className="dust-overlay" />
+      <Progress />
+      <FilmNoise />
 
-  <Spotlight />
+      {!introDone && <Intro onComplete={() => setIntroDone(true)} />}
 
-  <div className="dust-overlay" />
+      <Nav />
 
-  <Progress />
+      <main>
+        <Hero />
+        <Films />
+        <Texts />
+        <Design />
+        <Studies />
+        <About />
+        <Contact />
+      </main>
 
-  <FilmNoise />
-
-  {!introDone && (
-    <Intro onComplete={() => setIntroDone(true)} />
-  )}
-
-  <Nav />
-
-  <main>
-    <Hero />
-    <Films />
-    <Texts />
-    <Design />
-    <Studies />
-    <About />
-    <Contact />
-  </main>
-
-  <Footer />
-</>
+      <Footer />
+    </>
   );
 }
