@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import "./Contact.css";
 
 const LINKS = [
-  { label: "Email", href: "ryooshima2019@gmail.com" },
+  { label: "Email", href: "mailto：ryooshima2019@gmail.com" },
   { label: "Instagram", href: "#" },
   { label: "Twitter / X", href: "#" },
 ];
