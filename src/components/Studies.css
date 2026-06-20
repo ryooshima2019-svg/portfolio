@@ -3,34 +3,47 @@
   border-top: 1px solid rgba(107, 15, 26, 0.2);
 }
 
+/* === GRID（資料コラージュベース） === */
 .studies-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem 3rem;
   max-width: 70rem;
   padding: 3rem 0;
-  align-items: flex-start;
+  align-items: start;
+
+  /* “資料感”のための軽い歪み */
+  transform: rotate(-1.5deg);
 }
 
+/* === ITEM === */
 .study-item {
-  width: calc(50% - 1.5rem);
+  width: 100%;
   display: block;
-  transform-origin: center center;
-  transition: transform 0.3s ease;
+  transform-origin: center;
+  transition: transform 0.35s ease;
+  transform: rotate(var(--r, 0deg));
 }
 
-.study-item:nth-child(odd) {
-  margin-top: 3rem;
+/* ズレの設計（完全ランダムではなく“それっぽい秩序崩壊”） */
+.study-item:nth-child(3n) {
+  margin-top: 5rem !important;
 }
 
-.study-item:nth-child(even) {
-  margin-top: -2rem;
+.study-item:nth-child(4n) {
+  margin-top: 1.5rem !important;
 }
 
+.study-item:nth-child(5n) {
+  transform: translateY(-1rem) rotate(-1deg);
+}
+
+/* hover時はリセットして“現実に戻る”感じ */
 .study-item:hover {
   transform: rotate(0deg) scale(1.02) !important;
 }
 
+/* === THUMB === */
 .study-thumb {
   position: relative;
   overflow: hidden;
@@ -39,25 +52,28 @@
 .study-thumb-img {
   width: 100%;
   display: block;
-  filter: grayscale(20%) brightness(0.85);
-  transition: filter 0.4s;
+
+  /* 資料・アーカイブ感 */
+  filter: grayscale(30%) contrast(0.95) brightness(0.85);
+  transition: filter 0.4s ease;
 }
 
 .study-item:hover .study-thumb-img {
-  filter: grayscale(0%) brightness(1);
+  filter: grayscale(0%) contrast(1) brightness(1);
 }
 
 .study-thumb-overlay {
   position: absolute;
   inset: 0;
   background: rgba(5, 3, 5, 0.3);
-  transition: opacity 0.4s;
+  transition: opacity 0.4s ease;
 }
 
 .study-item:hover .study-thumb-overlay {
   opacity: 0;
 }
 
+/* === HOVER LABEL === */
 .study-play-follow {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -69,13 +85,14 @@
   padding: 0.4rem 0.8rem;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .study-play-follow.visible {
   opacity: 1;
 }
 
+/* === ID（資料番号感） === */
 .study-id {
   position: absolute;
   bottom: 0.8rem;
@@ -86,35 +103,21 @@
   color: rgba(232, 224, 216, 0.4);
 }
 
+/* === RESPONSIVE === */
 @media (max-width: 900px) {
+  .studies-grid {
+    grid-template-columns: 1fr;
+    transform: none;
+  }
+
   .study-item {
-    width: 100%;
     margin-top: 0 !important;
     transform: none !important;
   }
 }
 
 @media (max-width: 768px) {
-  #studies { padding: 5rem 1.5rem; }
-}
-
-.studies-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem 3rem;
-  max-width: 70rem;
-  padding: 3rem 0;
-  align-items: start;
-}
-
-.study-item {
-  width: 100% !important;
-}
-
-.study-item:nth-child(odd) {
-  margin-top: 4rem !important;
-}
-
-.study-item:nth-child(even) {
-  margin-top: 0 !important;
+  #studies {
+    padding: 5rem 1.5rem;
+  }
 }
