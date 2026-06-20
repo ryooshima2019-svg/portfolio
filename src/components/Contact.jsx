@@ -1,9 +1,14 @@
 import { useEffect, useRef } from "react";
 import "./Contact.css";
 
+const LINKS = [
+  { label: "Email", href: "ryooshima2019@gmail.com" },
+  { label: "Instagram", href: "#" },
+  { label: "Twitter / X", href: "#" },
+];
+
 export default function Contact() {
   const ref = useRef(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
@@ -25,11 +30,11 @@ export default function Contact() {
           何でもお気軽にどうぞ。
         </p>
         <div className="contact-links">
-          <a href="mailto:your@email.com" className="contact-link">
-            Email ↗
-          </a>
-          <a href="#" className="contact-link">Instagram ↗</a>
-          <a href="#" className="contact-link">Twitter / X ↗</a>
+          {LINKS.map(({ label, href }) => (
+            <a key={label} href={href} className="contact-link">
+              {label} ↗
+            </a>
+          ))}
         </div>
       </div>
     </section>
