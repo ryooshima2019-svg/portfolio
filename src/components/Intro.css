@@ -1,0 +1,43 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  background: #050305;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.intro-name {
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #d9cfc8;
+  letter-spacing: 0.15em;
+  opacity: 0;
+}
+
+.intro-line {
+  width: 6rem;
+  height: 1px;
+  background: #6b0f1a;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.intro-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6b5a5c;
+  opacity: 0;
+}

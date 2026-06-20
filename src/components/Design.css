@@ -1,0 +1,80 @@
+#design {
+  padding: 8rem 4rem;
+}
+
+.design-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  max-width: 60rem;
+}
+
+.design-item {
+  cursor: none;
+}
+
+.design-thumb {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(107, 15, 26, 0.2);
+}
+
+.design-img {
+  width: 100%;
+  display: block;
+  filter: brightness(0.85);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.design-item:hover .design-img {
+  transform: scale(1.03);
+  filter: brightness(1);
+}
+
+.design-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5, 3, 5, 0.5) 0%, transparent 50%);
+  transition: opacity 0.4s ease;
+}
+
+.design-item:hover .design-overlay {
+  opacity: 0.5;
+}
+
+.design-id {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(217, 207, 200, 0.5);
+}
+
+.design-title {
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: #d9cfc8;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s;
+}
+
+.design-item:hover .design-title {
+  color: #9e2a2b;
+}
+
+.design-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: #6b5a5c;
+}
+
+@media (max-width: 768px) {
+  #design { padding: 5rem 1.5rem; }
+  .design-grid { grid-template-columns: 1fr; gap: 3rem; }
+}

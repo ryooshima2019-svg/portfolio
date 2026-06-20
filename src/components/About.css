@@ -1,0 +1,81 @@
+#about {
+  padding: 8rem 4rem;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 16rem;
+  gap: 6rem;
+  align-items: start;
+  max-width: 70rem;
+}
+
+.about-text h2 {
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.02em;
+}
+
+.about-text h2 em {
+  font-style: italic;
+  color: #9e2a2b;
+}
+
+.about-text p {
+  color: #a89a8e;
+  font-size: 1rem;
+  line-height: 2;
+  margin-bottom: 0.6rem;
+  max-width: 52rem;
+}
+
+.about-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 0.5rem;
+}
+
+.tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tool-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6b0f1a;
+  margin-bottom: 0.2rem;
+}
+
+.tool-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tool-item {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: #6b5a5c;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(107, 15, 26, 0.2);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.tool-item:hover {
+  border-color: #6b0f1a;
+  color: #9e2a2b;
+}
+
+@media (max-width: 768px) {
+  #about { padding: 5rem 1.5rem; }
+  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+}

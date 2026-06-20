@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@200;300;400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #050305;
+  --bg2: #0a0508;
+  --text: #d9cfc8;
+  --muted: #6b5a5c;
+  --accent: #6b0f1a;
+  --accent2: #9e2a2b;
+  --border: rgba(107, 15, 26, 0.25);
+  --serif: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  --mono: 'Space Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #050305;
+  color: #d9cfc8;
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  font-weight: 300;
+  line-height: 1.8;
+  cursor: none;
+}
+
+@media (hover: none) {
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 1px solid #9e2a2b;
+  outline-offset: 3px;
+}
+
+a { color: inherit; }
+
+section {
+  padding: 8rem 4rem;
+}
+
+section:not(#hero) {
+  border-top: 1px solid rgba(107, 15, 26, 0.2);
+}
+
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6b0f1a;
+  margin-bottom: 4rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  section { padding: 5rem 1.5rem; }
+}
+
+main {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.section-bg-text {
+  position: absolute;
+  top: 2rem;
+  right: -1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(6rem, 15vw, 14rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(107, 15, 26, 0.15);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1;
+  z-index: 0;
+}
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 3, 5, 0.85);
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(600px, 90vw);
+  height: 100vh;
+  background: #0a0508;
+  border-left: 1px solid rgba(107, 15, 26, 0.3);
+  z-index: 501;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  padding: 4rem 3rem;
+}
+
+.modal.open {
+  transform: translateX(0);
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.modal-close button {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6b5a5c;
+  background: none;
+  border: 1px solid rgba(107, 15, 26, 0.25);
+  padding: 0.5rem 1rem;
+  cursor: none;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.modal-close button:hover {
+  color: #9e2a2b;
+  border-color: #6b0f1a;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #d9cfc8;
+  margin-bottom: 0.6rem;
+}
+
+.modal-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: #6b5a5c;
+  margin-bottom: 2.5rem;
+}
+
+.modal-body p {
+  color: #a89a8e;
+  font-size: 0.95rem;
+  line-height: 2.2;
+  margin-bottom: 1.4rem;
+}
+
+.dust-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/dusty.jpg');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.12;
+  mix-blend-mode: screen;
+}
+
+.dust-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/dusty.jpg');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.4;
+  mix-blend-mode: lighten;
+}

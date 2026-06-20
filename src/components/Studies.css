@@ -1,0 +1,120 @@
+#studies {
+  padding: 8rem 4rem;
+  border-top: 1px solid rgba(107, 15, 26, 0.2);
+}
+
+.studies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 70rem;
+  padding: 3rem 0;
+  align-items: flex-start;
+}
+
+.study-item {
+  width: calc(50% - 1.5rem);
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+}
+
+.study-item:nth-child(odd) {
+  margin-top: 3rem;
+}
+
+.study-item:nth-child(even) {
+  margin-top: -2rem;
+}
+
+.study-item:hover {
+  transform: rotate(0deg) scale(1.02) !important;
+}
+
+.study-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.study-thumb-img {
+  width: 100%;
+  display: block;
+  filter: grayscale(20%) brightness(0.85);
+  transition: filter 0.4s;
+}
+
+.study-item:hover .study-thumb-img {
+  filter: grayscale(0%) brightness(1);
+}
+
+.study-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 3, 5, 0.3);
+  transition: opacity 0.4s;
+}
+
+.study-item:hover .study-thumb-overlay {
+  opacity: 0;
+}
+
+.study-play-follow {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: #e8e0d8;
+  border: 1px solid rgba(232, 224, 216, 0.6);
+  padding: 0.4rem 0.8rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.study-play-follow.visible {
+  opacity: 1;
+}
+
+.study-id {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(232, 224, 216, 0.4);
+}
+
+@media (max-width: 900px) {
+  .study-item {
+    width: 100%;
+    margin-top: 0 !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #studies { padding: 5rem 1.5rem; }
+}
+
+.studies-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem 3rem;
+  max-width: 70rem;
+  padding: 3rem 0;
+  align-items: start;
+}
+
+.study-item {
+  width: 100% !important;
+}
+
+.study-item:nth-child(odd) {
+  margin-top: 4rem !important;
+}
+
+.study-item:nth-child(even) {
+  margin-top: 0 !important;
+}
