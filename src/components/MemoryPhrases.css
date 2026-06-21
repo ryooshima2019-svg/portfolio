@@ -1,0 +1,24 @@
+.memory-phrases {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.memory-phrase {
+  position: absolute;
+  transform: rotate(var(--r, 0deg));
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  color: rgba(217, 207, 200, 0.06);
+  white-space: nowrap;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .memory-phrase { font-size: 1.4rem; }
+}
