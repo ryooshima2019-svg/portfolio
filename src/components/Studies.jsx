@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import "./Studies.css";
+import MemoryPhrase from "./MemoryPhrase";
 
 const STUDIES = [
   { id: "01", title: "Study 01", type: "image", image: "/studies/decadance.jpg" },

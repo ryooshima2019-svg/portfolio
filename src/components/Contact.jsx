@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import "./Contact.css";
+import MemoryPhrase from "./MemoryPhrase";
 
 const LINKS = [
   { label: "Email", href: "mailto：ryooshima2019@gmail.com" },

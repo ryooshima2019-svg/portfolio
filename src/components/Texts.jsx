@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Texts.css";
 import { textsFullData, featuredFull } from "./textsData";
+import MemoryPhrase from "./MemoryPhrase";
 
 gsap.registerPlugin(ScrollTrigger);
 
