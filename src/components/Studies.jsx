@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import "./Studies.css";
 import MemoryPhrase from "./MemoryPhrase";
 
@@ -18,72 +18,63 @@ const STUDIES = [
   { id: "13", title: "Study 13", type: "video", url: "https://youtube.com/shorts/2Yt303bIdPY", image: "https://img.youtube.com/vi/2Yt303bIdPY/maxresdefault.jpg" },
 ];
 
-const SIZES = ["lg", "md", "md", "sm"];
+const positions = [
+  { top: "5%", left: "5%" },
+  { top: "10%", left: "55%" },
+  { top: "25%", left: "20%" },
+  { top: "40%", left: "60%" },
+  { top: "55%", left: "10%" },
+  { top: "70%", left: "50%" },
+  { top: "85%", left: "20%" },
+];
 
-function StudyItem({ item, rotate, offsetY, size }) {
-  const thumbRef = useRef(null);
-  const labelRef = useRef(null);
-  const [hovered, setHovered] = useState(false);
-  const isVideo = item.type === "video";
-
-  const onMouseMove = (e) => {
-    const rect = thumbRef.current.getBoundingClientRect();
-    if (labelRef.current) {
-      labelRef.current.style.left = `${e.clientX - rect.left}px`;
-      labelRef.current.style.top = `${e.clientY - rect.top}px`;
-    }
-  };
-
+function StudyItem({ item, rotate, offsetY, size, style }) {
   return (
     <a
-      href={isVideo ? item.url : "#"}
-      target={isVideo ? "_blank" : undefined}
-      rel={isVideo ? "noopener noreferrer" : undefined}
       className={`study-item study-item--${size}`}
-      style={{ "--r": `${rotate}deg`, "--ty": `${offsetY}rem` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onMouseMove={onMouseMove}
+      style={{
+        ...style,
+        "--r": `${rotate}deg`,
+        "--ty": `${offsetY}rem`,
+      }}
     >
-      <div className="study-thumb" ref={thumbRef}>
-        <img src={item.image} alt={item.title} className="study-thumb-img" />
-        <div className="study-thumb-overlay" />
-        <div
-          ref={labelRef}
-          className={hovered ? "study-play-follow visible" : "study-play-follow"}
-        >
-          {isVideo ? "PLAY" : "VIEW"}
-        </div>
-        <div className="study-id">{item.id}</div>
-      </div>
+      <img src={item.image} alt={item.title} />
     </a>
   );
 }
 
 export default function Studies() {
-  const layout = useMemo(
-    () =>
-      STUDIES.map(() => ({
-        rotate: (Math.random() - 0.5) * 12,
-        offsetY: (Math.random() - 0.5) * 6,
-        size: SIZES[Math.floor(Math.random() * SIZES.length)],
-      })),
-    []
-  );
+  const layout = useMemo(() => {
+    return STUDIES.map((_, i) => ({
+      rotate: (Math.random() - 0.5) * 6,
+      offsetY: (Math.random() - 0.5) * 2,
+      size: ["lg", "md", "md", "sm"][i % 4],
+    }));
+  }, []);
 
   return (
     <section id="studies">
       <MemoryPhrase text="I forgot." top="70%" left="20%" rotate={5} />
+
       <div className="studies-grid">
-        {STUDIES.map((item, i) => (
-          <StudyItem
-            key={item.id}
-            item={item}
-            rotate={layout[i].rotate}
-            offsetY={layout[i].offsetY}
-            size={layout[i].size}
-          />
-        ))}
+        {STUDIES.map((item, i) => {
+          const pos = positions[i % positions.length];
+          const l = layout[i];
+
+          return (
+            <StudyItem
+              key={item.id}
+              item={item}
+              rotate={l.rotate}
+              offsetY={l.offsetY}
+              size={l.size}
+              style={{
+                top: pos.top,
+                left: pos.left,
+              }}
+            />
+          );
+        })}
       </div>
     </section>
   );
