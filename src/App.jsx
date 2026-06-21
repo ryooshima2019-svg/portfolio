@@ -14,6 +14,7 @@ import FilmNoise from "./components/FilmNoise";
 import Cursor from "./components/Cursor";
 import Progress from "./components/Progress";
 import Spotlight from "./components/Spotlight";
+import MemoryPhrases from "./components/MemoryPhrases";
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
@@ -25,6 +26,7 @@ export default function App() {
       <div className="dust-overlay" />
       <Progress />
       <FilmNoise />
+      <MemoryPhrases />
 
       {!introDone && <Intro onComplete={() => setIntroDone(true)} />}
 
