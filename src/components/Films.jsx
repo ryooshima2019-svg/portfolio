@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Films.css";
+import MemoryPhrase from "./MemoryPhrase";
 
 gsap.registerPlugin(ScrollTrigger);
 
