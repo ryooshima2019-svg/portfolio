@@ -28,12 +28,19 @@ function StudyItem({ item, index, style }) {
 
 export default function Studies() {
   const layout = useMemo(() => {
-    return STUDIES.map(() => ({
-      x: (Math.random() - 0.5) * 400,
-      y: (Math.random() - 0.5) * 600,
-      rotate: (Math.random() - 0.5) * 10,
-      size: 180 + Math.random() * 140,
-    }));
+    const cols = 4; // ←ここが重要（密度コントロール）
+
+    return STUDIES.map((_, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      return {
+        x: col * 260 + (Math.random() - 0.5) * 50,
+        y: row * 320 + (Math.random() - 0.5) * 80,
+        rotate: (Math.random() - 0.5) * 8,
+        size: 180 + Math.random() * 120,
+      };
+    });
   }, []);
 
   return (
