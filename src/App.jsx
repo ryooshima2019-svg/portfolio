@@ -26,7 +26,6 @@ export default function App() {
       <div className="dust-overlay" />
       <Progress />
       <FilmNoise />
-      <MemoryPhrases />
 
       {!introDone && <Intro onComplete={() => setIntroDone(true)} />}
 

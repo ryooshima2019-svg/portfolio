@@ -89,18 +89,17 @@
   .hero-scroll { display: none; }
 }
 
-.hero-memory{
-  position:absolute;
-  top:8%;
-  left:4%;
-
-  font-size:clamp(5rem,14vw,12rem);
-  font-weight:200;
-  letter-spacing:-0.04em;
-
-  color:rgba(255,255,255,0.08);
-  filter:blur(1.5px);
-
-  user-select:none;
-  pointer-events:none;
+.hero-memory {
+  position: absolute;
+  top: 60%;
+  left: auto;
+  right: 4%;
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.08);
+  filter: blur(3px);
+  transform: rotate(-8deg);
+  user-select: none;
+  pointer-events: none;
 }
