@@ -3,97 +3,54 @@
   padding: 8rem 4rem;
 }
 
+/* キャンバス */
 .studies-grid {
   position: relative;
   width: 100%;
-  min-height: 160vh;
+  min-height: 200vh;
 }
 
+/* カード */
 .study-item {
   position: absolute;
 
-  width: 260px;
-  aspect-ratio: 4 / 3;
+  width: var(--w);
+  height: auto;
 
-  transform: translateY(var(--ty, 0)) rotate(var(--r, 0deg));
+  transform: translate(var(--x), var(--y)) rotate(var(--r));
   transition: transform 0.35s ease;
 
-  overflow: hidden;
-
-  z-index: calc(10 - var(--i, 0));
+  z-index: calc(10 - var(--i));
 }
 
-.study-item:hover {
-  z-index: 999;
-  transform: translateY(var(--ty, 0)) rotate(var(--r, 0deg)) scale(1.05);
-}
-
-.study-thumb {
-  position: relative;
-  overflow: hidden;
-}
-
-.study-thumb-img {
+/* 画像（切れ防止の核心） */
+.study-item img {
   width: 100%;
+  height: auto;
   display: block;
-  filter: grayscale(30%) contrast(0.95) brightness(0.85);
+
+  object-fit: contain;
+  filter: grayscale(20%) contrast(0.95) brightness(0.9);
   transition: filter 0.4s ease;
 }
 
-.study-item:hover .study-thumb-img {
+/* hover */
+.study-item:hover {
+  z-index: 999;
+  transform: translate(var(--x), var(--y)) rotate(0deg) scale(1.08);
+}
+
+.study-item:hover img {
   filter: grayscale(0%) contrast(1) brightness(1);
 }
 
-.study-thumb-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 3, 5, 0.3);
-  transition: opacity 0.4s ease;
-}
-
-.study-item:hover .study-thumb-overlay {
-  opacity: 0;
-}
-
-.study-id {
-  position: absolute;
-  bottom: 0.8rem;
-  left: 0.8rem;
-
-  font-family: 'Space Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-
-  color: rgba(232, 224, 216, 0.4);
-}
-
-.study-play-follow {
-  position: absolute;
-  transform: translate(-50%, -50%);
-
-  font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-
-  color: #e8e0d8;
-  border: 1px solid rgba(232, 224, 216, 0.6);
-  padding: 0.4rem 0.8rem;
-
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.study-play-follow.visible {
-  opacity: 1;
-}
-
+/* mobile */
 @media (max-width: 900px) {
   .study-item {
     position: relative;
+    transform: none;
     width: 100%;
     margin-bottom: 2rem;
-    transform: none;
   }
 
   .studies-grid {

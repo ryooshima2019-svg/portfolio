@@ -18,38 +18,21 @@ const STUDIES = [
   { id: "13", title: "Study 13", image: "https://img.youtube.com/vi/2Yt303bIdPY/maxresdefault.jpg" },
 ];
 
-const positions = [
-  { top: "6%", left: "8%" },
-  { top: "12%", left: "48%" },
-  { top: "18%", left: "22%" },
-  { top: "32%", left: "60%" },
-  { top: "45%", left: "12%" },
-  { top: "58%", left: "52%" },
-  { top: "70%", left: "30%" },
-  { top: "82%", left: "62%" },
-];
-
-function StudyItem({ item, rotate, offsetY, index, style }) {
+function StudyItem({ item, index, style }) {
   return (
-    <a
-      className="study-item"
-      style={{
-        ...style,
-        "--r": `${rotate}deg`,
-        "--ty": `${offsetY}rem`,
-        "--i": index,
-      }}
-    >
+    <div className="study-item" style={{ ...style, "--i": index }}>
       <img src={item.image} alt={item.title} />
-    </a>
+    </div>
   );
 }
 
 export default function Studies() {
   const layout = useMemo(() => {
-    return STUDIES.map((_, i) => ({
-      rotate: (Math.random() - 0.5) * 6,
-      offsetY: (Math.random() - 0.5) * 2,
+    return STUDIES.map(() => ({
+      x: (Math.random() - 0.5) * 400,
+      y: (Math.random() - 0.5) * 600,
+      rotate: (Math.random() - 0.5) * 10,
+      size: 180 + Math.random() * 140,
     }));
   }, []);
 
@@ -59,21 +42,18 @@ export default function Studies() {
 
       <div className="studies-grid">
         {STUDIES.map((item, i) => {
-          const pos = positions[i % positions.length];
           const l = layout[i];
-
-          const jitter = () => (Math.random() - 0.5) * 4;
 
           return (
             <StudyItem
               key={item.id}
               item={item}
               index={i}
-              rotate={l.rotate}
-              offsetY={l.offsetY}
               style={{
-                top: `calc(${pos.top} + ${jitter()}%)`,
-                left: `calc(${pos.left} + ${jitter()}%)`,
+                "--x": `${l.x}px`,
+                "--y": `${l.y}px`,
+                "--r": `${l.rotate}deg`,
+                "--w": `${l.size}px`,
               }}
             />
           );
