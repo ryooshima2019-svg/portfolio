@@ -36,6 +36,7 @@ export default function Design() {
 
   return (
     <section id="design" ref={ref}>
+      <MemoryPhrase text="it was clear today." top="20%" left="65%" rotate={-2} />
       <div className="section-tag">Design</div>
       <span className="section-bg-text">Design</span>
       <div className="design-grid">

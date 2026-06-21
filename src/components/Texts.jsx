@@ -47,6 +47,7 @@ export default function Texts() {
 
   return (
     <section id="texts" ref={ref}>
+      <MemoryPhrase text="until it disappeared." top="60%" left="8%" rotate={-4} />
       <div className="section-tag">Texts</div>
       <span className="section-bg-text">Texts</span>
 

@@ -22,6 +22,7 @@ export default function Contact() {
 
   return (
     <section id="contact" ref={ref}>
+      <MemoryPhrase text="nothing left to say." top="30%" left="15%" rotate={2} />
       <div className="section-tag reveal">Contact</div>
       <span className="section-bg-text">Contact</span>
       <div className="contact-inner reveal">

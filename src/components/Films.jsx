@@ -99,6 +99,7 @@ export default function Films() {
 
   return (
     <section id="films" ref={ref}>
+      <MemoryPhrase text="she just smiled." top="15%" left="75%" rotate={3} />
       <div className="section-tag">Films</div>
       <span ref={bgRef} className="section-bg-text">Films</span>
       <div className="films-grid">
