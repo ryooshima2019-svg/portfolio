@@ -20,6 +20,8 @@
   transition: transform 0.35s ease;
   transform: rotate(var(--r, 0deg)) translateY(var(--ty, 0));
   grid-column: span 3;
+  max-height: 320px;
+  overflow: hidden;
 }
 
 .study-item--lg { grid-column: span 4; }
