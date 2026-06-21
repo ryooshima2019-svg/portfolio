@@ -18,48 +18,44 @@ const STUDIES = [
   { id: "13", title: "Study 13", image: "https://img.youtube.com/vi/2Yt303bIdPY/maxresdefault.jpg" },
 ];
 
-function StudyItem({ item, index, style }) {
-  return (
-    <div className="study-item" style={{ ...style, "--i": index }}>
-      <img src={item.image} alt={item.title} />
-    </div>
-  );
-}
-
 export default function Studies() {
   const layout = useMemo(() => {
-    const cols = 4;
-
     return STUDIES.map((_, i) => {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
+      const depth = Math.random(); // ←奥行き
 
       return {
-        x: 150 + col * 300 + (Math.random() - 0.5) * 60,
-        y: 150 + row * 380 + (Math.random() - 0.5) * 80,
-        rotate: (Math.random() - 0.5) * 8,
-        size: 180 + Math.random() * 120,
+        x: 120 + (i % 4) * 300 + (Math.random() - 0.5) * 80,
+        y: 120 + Math.floor(i / 4) * 360 + (Math.random() - 0.5) * 120,
+        rotate: (Math.random() - 0.5) * 10,
+        size: 160 + Math.random() * 160,
+
+        scale: 0.85 + depth * 0.4, // ←奥行き
+        opacity: 0.55 + depth * 0.45, // ←空気感
       };
     });
   }, []);
 
   return (
     <section id="studies">
-      <MemoryPhrase text="I forgot." top="70%" left="20%" rotate={5} />
+      <MemoryPhrase text="I forgot." top="65%" left="18%" rotate={-3} />
 
       <div className="studies-grid">
         {STUDIES.map((item, i) => {
           const l = layout[i];
 
+          const isMain = i === 3; // ←主役を1つ作る
+
           return (
             <div
               key={item.id}
-              className="study-item"
+              className={`study-item ${isMain ? "is-main" : ""}`}
               style={{
                 "--x": `${l.x}px`,
                 "--y": `${l.y}px`,
                 "--r": `${l.rotate}deg`,
                 "--w": `${l.size}px`,
+                "--s": l.scale,
+                "--o": l.opacity,
                 "--i": i,
               }}
             >

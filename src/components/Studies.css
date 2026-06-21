@@ -1,12 +1,16 @@
 #studies {
   position: relative;
-  padding: 8rem 4rem;
+  padding: 10rem 4rem;
 }
 
+/* 空間 */
 .studies-grid {
   position: relative;
   width: 100%;
-  min-height: 240vh;
+  min-height: 260vh;
+
+  /* 微妙なノイズ感 */
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent);
 }
 
 /* カード */
@@ -14,8 +18,15 @@
   position: absolute;
 
   width: var(--w);
-  transform: translate(var(--x), var(--y)) rotate(var(--r));
-  transition: transform 0.35s ease;
+
+  transform:
+    translate(var(--x), var(--y))
+    rotate(var(--r))
+    scale(var(--s));
+
+  opacity: var(--o);
+
+  transition: transform 0.45s ease, opacity 0.45s ease;
 
   z-index: calc(10 - var(--i));
 }
@@ -27,16 +38,31 @@
   height: auto;
 
   object-fit: cover;
-  filter: grayscale(20%) contrast(0.95);
-  transition: 0.4s ease;
+
+  filter: grayscale(25%) contrast(0.9) brightness(0.85);
+  transition: filter 0.4s ease;
 }
 
 /* hover */
 .study-item:hover {
   z-index: 999;
-  transform: translate(var(--x), var(--y)) rotate(0deg) scale(1.08);
+  transform:
+    translate(var(--x), var(--y))
+    rotate(0deg)
+    scale(calc(var(--s) * 1.15));
+
+  opacity: 1;
 }
 
 .study-item:hover img {
-  filter: grayscale(0%) contrast(1);
+  filter: grayscale(0%) contrast(1) brightness(1);
+}
+
+/* 主役 */
+.study-item.is-main {
+  z-index: 999;
+}
+
+.study-item.is-main img {
+  filter: grayscale(0%) contrast(1.1) brightness(1);
 }
