@@ -58,7 +58,7 @@ export default function About() {
 
   return (
     <section id="about" ref={ref}>
-      <MemoryPhrase texts={["still watching.", "I kept looking.", "until it faded."]} top="55%" left="70%" rotate={-3} />
+      <MemoryPhrase texts={["still watching.", "I kept looking.", "until it faded."]} top="55%" left="30%" rotate={-3} interval={3000} />
       <div className="section-tag">About</div>
       <span className="section-bg-text">About</span>
       <div className="about-inner">
