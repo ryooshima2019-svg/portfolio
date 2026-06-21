@@ -9,31 +9,32 @@
   min-height: 240vh;
 }
 
+/* カード */
 .study-item {
   position: absolute;
 
-  width: var(--w, 220px);
-
-  transform: translate(var(--x, 0px), var(--y, 0px)) rotate(var(--r, 0deg));
+  width: var(--w);
+  transform: translate(var(--x), var(--y)) rotate(var(--r));
   transition: transform 0.35s ease;
 
   z-index: calc(10 - var(--i));
 }
 
+/* 画像 */
 .study-item img {
   width: 100%;
-  height: auto;
   display: block;
+  height: auto;
 
-  object-fit: cover; 
+  object-fit: cover;
   filter: grayscale(20%) contrast(0.95);
-  transition: filter 0.4s ease;
+  transition: 0.4s ease;
 }
 
 /* hover */
 .study-item:hover {
   z-index: 999;
-  transform: translate(var(--x, 0px), var(--y, 0px)) rotate(0deg) scale(1.08);
+  transform: translate(var(--x), var(--y)) rotate(0deg) scale(1.08);
 }
 
 .study-item:hover img {

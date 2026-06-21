@@ -28,15 +28,15 @@ function StudyItem({ item, index, style }) {
 
 export default function Studies() {
   const layout = useMemo(() => {
-    const cols = 4; // ←ここが重要（密度コントロール）
+    const cols = 4;
 
     return STUDIES.map((_, i) => {
       const col = i % cols;
       const row = Math.floor(i / cols);
 
       return {
-        x: col * 260 + (Math.random() - 0.5) * 50,
-        y: row * 320 + (Math.random() - 0.5) * 80,
+        x: 150 + col * 300 + (Math.random() - 0.5) * 60,
+        y: 150 + row * 380 + (Math.random() - 0.5) * 80,
         rotate: (Math.random() - 0.5) * 8,
         size: 180 + Math.random() * 120,
       };
@@ -52,17 +52,19 @@ export default function Studies() {
           const l = layout[i];
 
           return (
-            <StudyItem
+            <div
               key={item.id}
-              item={item}
-              index={i}
+              className="study-item"
               style={{
                 "--x": `${l.x}px`,
                 "--y": `${l.y}px`,
                 "--r": `${l.rotate}deg`,
                 "--w": `${l.size}px`,
+                "--i": i,
               }}
-            />
+            >
+              <img src={item.image} alt={item.title} />
+            </div>
           );
         })}
       </div>
