@@ -74,7 +74,6 @@
   transform: scaleX(1);
 }
 
-/* Hamburger button */
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -93,7 +92,6 @@
   display: block;
 }
 
-/* Mobile overlay menu */
 .nav-mobile {
   position: fixed;
   inset: 0;
@@ -210,12 +208,9 @@ body {
   100% { transform: translate(-10%,10%); }
 }
 
-/* Background sink effect when mobile menu is open */
 body.menu-open #root {
-  transform: scale(0.98);
-  filter: blur(2px);
-  transition: transform 0.45s ease, filter 0.45s ease;
-  transform-origin: center center;
+  filter: blur(1px);
+  transition: filter 0.45s ease;
 }
 
 body.menu-open {

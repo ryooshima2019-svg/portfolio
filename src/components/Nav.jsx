@@ -43,18 +43,22 @@ export default function Nav() {
   }, []);
 
   const openMenu = () => {
-    scrollYRef.current = window.scrollY;
-    document.body.style.cssText = `position:fixed; top:-${window.scrollY}px; width:100%`;
-    document.body.classList.add("menu-open");
-    setMenuOpen(true);
-  };
+  scrollYRef.current = window.scrollY;
+  document.body.style.position = "fixed";
+  document.body.style.top      = `-${window.scrollY}px`;
+  document.body.style.width    = "100%";
+  document.body.classList.add("menu-open");
+  setMenuOpen(true);
+};
 
-  const closeMenu = () => {
-    document.body.style.cssText = "";
-    window.scrollTo(0, scrollYRef.current);
-    document.body.classList.remove("menu-open");
-    setMenuOpen(false);
-  };
+const closeMenu = () => {
+  document.body.style.position = "";
+  document.body.style.top      = "";
+  document.body.style.width    = "";
+  window.scrollTo(0, scrollYRef.current);
+  document.body.classList.remove("menu-open");
+  setMenuOpen(false);
+};
 
   const toggleMenu = () => (menuOpen ? closeMenu() : openMenu());
 
