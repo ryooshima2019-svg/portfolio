@@ -111,7 +111,7 @@ export default function Films() {
 
   return (
     <section id="films" ref={ref}>
-      <MemoryPhrase texts={["I was watching.", "it played on.", "still rolling."]} top="15%" left="75%" rotate={3} interval={4300} />
+      <MemoryPhrase texts={["I was watching.", "it played on.", "still rolling."]} top="15%" left="55%" rotate={3} interval={4300} />
       <div className="section-tag">Films</div>
       <span ref={bgRef} className="section-bg-text">Films</span>
       <div className="films-grid">
