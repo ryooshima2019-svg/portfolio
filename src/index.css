@@ -92,7 +92,7 @@ section:not(#hero) {
 .dust-overlay {
   position: fixed;
   inset: 0;
-  background-image: url("/images/dusty.jpeg");
+  background-image: url("/images/Dusty.jpeg");
   background-size: cover;
   background-position: center;
   pointer-events: none;
