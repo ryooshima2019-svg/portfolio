@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./Hero.css";
+import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
   const titleRef = useRef(null);

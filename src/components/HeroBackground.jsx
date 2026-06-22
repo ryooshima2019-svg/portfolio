@@ -1,0 +1,40 @@
+import { useEffect, useState } from "react";
+import "./HeroBackground.css";
+
+const IMAGES = [
+  "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg",
+  "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg",
+  "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg",
+  "/images/moega.jpg",
+  "/images/bluem.jpg",
+  "/studies/decadance.jpg",
+  "/studies/poster.jpg",
+  "/studies/ryo3d.jpg",
+  "/studies/vogue1.jpg",
+  "/studies/vogue2.jpg",
+];
+
+export default function HeroBackground({ interval = 4000 }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % IMAGES.length);
+    }, interval);
+    return () => clearInterval(id);
+  }, [interval]);
+
+  return (
+    <div className="hero-bg">
+      {IMAGES.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          className={i === index ? "hero-bg-img active" : "hero-bg-img"}
+        />
+      ))}
+      <div className="hero-bg-overlay" />
+    </div>
+  );
+}
