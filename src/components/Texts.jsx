@@ -6,7 +6,7 @@ import { textsFullData, featuredFull } from "./textsData";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
 import { useFocusTrap } from "../hooks/useFocusTrap";
-import { TEXTS, FEATURED_TEXT } from "../data/works"; 
+import { TEXTS } from "../data/works"; 
 
 const splitParagraphs = (text) =>
   text.split("\n\n").map((para, i) => <p key={i}>{para}</p>);
@@ -39,6 +39,8 @@ export default function Texts() {
 
   const [modal,        setModal]        = useState(null);
   const [featuredOpen, setFeaturedOpen] = useState(false);
+
+  const FEATURED = textsFullData.FEATURED;
 
   useBgGlitch(ref, bgRef, 5500);
 
