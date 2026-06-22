@@ -22,12 +22,45 @@ const TEXTS = [
   { id: "004", title: "栞", year: "2026", genre: "短編小説", excerpt: "これは幼かった頃の話。別に仲良くなんてなかった。ただ時々見かけるだけ、彼女は私を見かけると微笑むだけ。" },
 ];
 
+function useBgGlitch(ref, bgRef, intervalMs) {
+  useEffect(() => {
+    if (!bgRef.current) return;
+
+    const glitch = () => {
+      gsap.timeline()
+        .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
+        .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
+        .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
+        .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
+    };
+
+    let glitchInterval;
+    const trigger = ScrollTrigger.create({
+      trigger: ref.current,
+      start: "top 80%",
+      onEnter: () => {
+        glitch();
+        glitchInterval = setInterval(glitch, intervalMs);
+      },
+      onLeaveBack: () => clearInterval(glitchInterval),
+    });
+
+    return () => {
+      trigger.kill();
+      clearInterval(glitchInterval);
+    };
+  }, [ref, bgRef, intervalMs]);
+}
+
 export default function Texts() {
   const ref = useRef(null);
+  const bgRef = useRef(null);
   const [modal, setModal] = useState(null);
   const [featuredOpen, setFeaturedOpen] = useState(false);
   const openModal = (text) => setModal({ ...text, full: textsFullData[text.id] || "" });
   const closeModal = () => setModal(null);
+
+  useBgGlitch(ref, bgRef, 5500);
 
   useEffect(() => {
     const pieces = ref.current.querySelectorAll(".text-piece");
@@ -48,9 +81,9 @@ export default function Texts() {
 
   return (
     <section id="texts" ref={ref}>
-      <MemoryPhrase texts={["I wrote it down.", "the words stayed.", "unfinished, still."]} top="60%" left="8%" rotate={-4} />
+      <MemoryPhrase texts={["I wrote it down.", "the words stayed.", "unfinished, still."]} top="60%" left="8%" rotate={-4} interval={4700} />
       <div className="section-tag">Texts</div>
-      <span className="section-bg-text">Texts</span>
+      <span ref={bgRef} className="section-bg-text">Texts</span>
 
       <div className="text-featured">
         <div className="text-featured-label">Featured</div>

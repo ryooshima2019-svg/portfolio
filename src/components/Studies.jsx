@@ -1,5 +1,10 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Studies.css";
+import MemoryPhrase from "./MemoryPhrase";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const STUDIES = [
   { id: "01", title: "Study 01", type: "image", image: "/studies/decadance.jpg" },
@@ -18,6 +23,36 @@ const STUDIES = [
 ];
 
 const SIZES = ["lg", "md", "md", "sm"];
+
+function useBgGlitch(ref, bgRef, intervalMs) {
+  useEffect(() => {
+    if (!bgRef.current) return;
+
+    const glitch = () => {
+      gsap.timeline()
+        .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
+        .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
+        .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
+        .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
+    };
+
+    let glitchInterval;
+    const trigger = ScrollTrigger.create({
+      trigger: ref.current,
+      start: "top 80%",
+      onEnter: () => {
+        glitch();
+        glitchInterval = setInterval(glitch, intervalMs);
+      },
+      onLeaveBack: () => clearInterval(glitchInterval),
+    });
+
+    return () => {
+      trigger.kill();
+      clearInterval(glitchInterval);
+    };
+  }, [ref, bgRef, intervalMs]);
+}
 
 function StudyItem({ item, rotate, offsetY, size }) {
   const thumbRef = useRef(null);
@@ -60,6 +95,10 @@ function StudyItem({ item, rotate, offsetY, size }) {
 }
 
 export default function Studies() {
+  const ref = useRef(null);
+  const bgRef = useRef(null);
+  useBgGlitch(ref, bgRef, 5000);
+
   const layout = useMemo(
     () =>
       STUDIES.map(() => ({
@@ -71,7 +110,10 @@ export default function Studies() {
   );
 
   return (
-    <section id="studies">
+    <section id="studies" ref={ref}>
+      <MemoryPhrase texts={["just practicing.", "not yet done.", "trying again."]} top="70%" left="20%" rotate={5} interval={4900} />
+      <div className="section-tag">Studies</div>
+      <span ref={bgRef} className="section-bg-text">Studies</span>
       <div className="studies-grid">
         {STUDIES.map((item, i) => (
           <StudyItem

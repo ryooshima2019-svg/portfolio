@@ -63,44 +63,55 @@ export default function Films() {
         scrollTrigger: { trigger: ref.current, start: "top 70%" } }
     );
 
-    let glitchTrigger;
-    let parallaxTween;
+    const glitch = () => {
+      if (!bgRef.current) return;
+      gsap.timeline()
+        .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
+        .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
+        .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
+        .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
+    };
 
+    let glitchTrigger;
+    let glitchInterval;
     if (bgRef.current) {
       glitchTrigger = ScrollTrigger.create({
         trigger: ref.current,
         start: "top 80%",
         onEnter: () => {
-          gsap.timeline()
-            .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
-            .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
-            .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
-            .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
+          glitch();
+          glitchInterval = setInterval(glitch, 5000);
         },
-      });
-
-      parallaxTween = gsap.to(bgRef.current, {
-        y: -40,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 4,
+        onLeaveBack: () => {
+          clearInterval(glitchInterval);
         },
       });
     }
 
+    const parallaxTween = bgRef.current
+      ? gsap.to(bgRef.current, {
+          y: -40,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 4,
+          },
+        })
+      : null;
+
     return () => {
       cardTween.scrollTrigger?.kill();
       glitchTrigger?.kill();
+      clearInterval(glitchInterval);
       parallaxTween?.scrollTrigger?.kill();
     };
   }, []);
 
   return (
     <section id="films" ref={ref}>
-      <MemoryPhrase texts={["I was watching.", "it played on.", "still rolling."]} top="15%" left="75%" rotate={3} interval={4500} />
+      <MemoryPhrase texts={["I was watching.", "it played on.", "still rolling."]} top="15%" left="75%" rotate={3} interval={4300} />
       <div className="section-tag">Films</div>
       <span ref={bgRef} className="section-bg-text">Films</span>
       <div className="films-grid">

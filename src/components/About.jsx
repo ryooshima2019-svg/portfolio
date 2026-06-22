@@ -39,6 +39,36 @@ function useAboutAnimation(ref) {
   }, [ref]);
 }
 
+function useBgGlitch(ref, bgRef, intervalMs) {
+  useEffect(() => {
+    if (!bgRef.current) return;
+
+    const glitch = () => {
+      gsap.timeline()
+        .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
+        .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
+        .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
+        .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
+    };
+
+    let glitchInterval;
+    const trigger = ScrollTrigger.create({
+      trigger: ref.current,
+      start: "top 80%",
+      onEnter: () => {
+        glitch();
+        glitchInterval = setInterval(glitch, intervalMs);
+      },
+      onLeaveBack: () => clearInterval(glitchInterval),
+    });
+
+    return () => {
+      trigger.kill();
+      clearInterval(glitchInterval);
+    };
+  }, [ref, bgRef, intervalMs]);
+}
+
 function ToolGroup({ category, items }) {
   return (
     <div className="tool-group">
@@ -54,13 +84,15 @@ function ToolGroup({ category, items }) {
 
 export default function About() {
   const ref = useRef(null);
+  const bgRef = useRef(null);
   useAboutAnimation(ref);
+  useBgGlitch(ref, bgRef, 7000);
 
   return (
     <section id="about" ref={ref}>
-      <MemoryPhrase texts={["still watching.", "I kept looking.", "until it faded."]} top="55%" left="30%" rotate={-3} interval={4500} />
+      <MemoryPhrase texts={["still watching.", "I kept looking.", "until it faded."]} top="55%" left="30%" rotate={-3} interval={4200} />
       <div className="section-tag">About</div>
-      <span className="section-bg-text">About</span>
+      <span ref={bgRef} className="section-bg-text">About</span>
       <div className="about-inner">
         <div className="about-text">
           <h2>飛び立つ鳥をずっと眺めていた。<em>見えなくなるまで。</em></h2>
