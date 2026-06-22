@@ -43,40 +43,38 @@ export default function Nav() {
   }, []);
 
   const openMenu = () => {
-  scrollYRef.current = window.scrollY;
-  document.body.style.position = "fixed";
-  document.body.style.top      = `-${window.scrollY}px`;
-  document.body.style.width    = "100%";
-  document.body.classList.add("menu-open");
-  setMenuOpen(true);
-};
+    scrollYRef.current = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top      = `-${window.scrollY}px`;
+    document.body.style.width    = "100%";
+    setMenuOpen(true);
+  };
 
-const closeMenu = () => {
-  document.body.style.position = "";
-  document.body.style.top      = "";
-  document.body.style.width    = "";
-  window.scrollTo(0, scrollYRef.current);
-  document.body.classList.remove("menu-open");
-  setMenuOpen(false);
-};
+  const closeMenu = () => {
+    document.body.style.position = "";
+    document.body.style.top      = "";
+    document.body.style.width    = "";
+    window.scrollTo(0, scrollYRef.current);
+    setMenuOpen(false);
+  };
 
-const toggleMenu = () => {
-  console.log("toggleMenu clicked, current state:", menuOpen);
+  const toggleMenu = () => {
+    console.log("toggleMenu clicked, current state:", menuOpen);
 
-  if (menuOpen) {
-    closeMenu();
-  } else {
-    openMenu();
-  }
-};
+    if (menuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
 
   const handleClick = (e, id) => {
-  e.preventDefault();
-  if (menuOpen) closeMenu();
-  requestAnimationFrame(() => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  });
-};
+    e.preventDefault();
+    if (menuOpen) closeMenu();
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    });
+  };
 
   return (
     <nav className={`nav${scrolled ? " nav--scrolled" : ""}`}>
