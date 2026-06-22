@@ -52,3 +52,20 @@ body.lightbox-open .cursor-ring {
   opacity: 1 !important;
   display: block !important;
 }
+
+/* Ensure cursor is always above lightbox */
+.cursor {
+  z-index: 100000 !important;
+}
+
+.cursor-ring {
+  z-index: 99999 !important;
+}
+
+/* Reinforce visibility during lightbox */
+body.lightbox-open .cursor,
+body.lightbox-open .cursor-ring {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
