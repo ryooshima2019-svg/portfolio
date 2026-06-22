@@ -17,13 +17,36 @@ function FilmCard({ film }) {
   const playRef = useRef(null);
   const [hovered, setHovered] = useState(false);
 
+  const [playing, setPlaying] = useState(false);
+
+  const rippleRef = useRef(null);
+
+  const mouse = useRef({ x: 0, y: 0 });
+  const pos = useRef({ x: 0, y: 0 });
+  const raf = useRef(null);
+
   const onMouseMove = (e) => {
     const rect = thumbRef.current.getBoundingClientRect();
-    if (playRef.current) {
-      playRef.current.style.left = `${e.clientX - rect.left}px`;
-      playRef.current.style.top = `${e.clientY - rect.top}px`;
-    }
+    mouse.current.x = e.clientX - rect.left;
+    mouse.current.y = e.clientY - rect.top;
   };
+
+  useEffect(() => {
+    const animate = () => {
+      pos.current.x += (mouse.current.x - pos.current.x) * 0.12;
+      pos.current.y += (mouse.current.y - pos.current.y) * 0.12;
+
+      if (playRef.current) {
+        playRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+      }
+
+      raf.current = requestAnimationFrame(animate);
+    };
+
+    raf.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(raf.current);
+  }, []);
 
   return (
     <a
@@ -34,11 +57,43 @@ function FilmCard({ film }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={onMouseMove}
+      onClick={(e) => {
+        e.preventDefault();
+
+        setPlaying(true);
+
+        if (rippleRef.current) {
+          rippleRef.current.classList.remove("active");
+          void rippleRef.current.offsetWidth;
+          rippleRef.current.classList.add("active");
+        }
+
+        if (playRef.current) {
+          playRef.current.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+          playRef.current.style.opacity = "0";
+          playRef.current.style.transform += " scale(1.2)";
+        }
+
+        setTimeout(() => {
+          window.open(film.url, "_blank");
+        }, 350);
+
+        setTimeout(() => {
+          setPlaying(false);
+          if (playRef.current) {
+            playRef.current.style.opacity = "1";
+          }
+        }, 1200);
+      }}
     >
       <div className="film-thumb" ref={thumbRef}>
         <img src={film.thumb} alt={film.title} className="film-thumb-img" />
         <div className="film-thumb-overlay" />
-        <div ref={playRef} className={hovered ? "film-play-follow visible" : "film-play-follow"}>
+        <div ref={rippleRef} className="film-ripple" />
+        <div
+          ref={playRef}
+          className={hovered && !playing ? "film-play-follow visible" : "film-play-follow"}
+        >
           PLAY
         </div>
         <div className="film-id">{film.id}</div>
