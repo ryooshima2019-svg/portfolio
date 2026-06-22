@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import "./Design.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-import { STUDIES } from "../data/works";
+import { DESIGNS } from "../data/works";
 
 export default function Design() {
   const ref   = useRef(null);
@@ -37,7 +37,7 @@ export default function Design() {
       <span ref={bgRef} className="section-bg-text">Design</span>
 
       <div className="design-grid">
-        {POSTERS.map((p) => (
+        {DESIGNS.map((p) => (
           <div key={p.id} className="design-item">
             <div className="design-thumb">
               <img src={p.src} alt={p.title} className="design-img" />
