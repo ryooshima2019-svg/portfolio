@@ -375,6 +375,9 @@ export const textsFullData = {
 
 終わり`,
 FEATURED: {
+    title: "砂漠を走る青年よ",
+    year: "2026",
+    genre: "短編小説",
     full: featuredFull
   },
 };
