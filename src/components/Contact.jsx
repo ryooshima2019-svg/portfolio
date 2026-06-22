@@ -10,36 +10,6 @@ const LINKS = [
   { label: "Twitter / X", href: "https://x.com/ryo_oos?s=11" },
 ];
 
-function useBgGlitch(ref, bgRef, intervalMs) {
-  useEffect(() => {
-    if (!bgRef.current) return;
-
-    const glitch = () => {
-      gsap.timeline()
-        .to(bgRef.current, { skewX: 8, x: 15, opacity: 0.3, duration: 0.06 })
-        .to(bgRef.current, { skewX: -5, x: -10, opacity: 0.6, duration: 0.06 })
-        .to(bgRef.current, { skewX: 3, x: 5, duration: 0.05 })
-        .to(bgRef.current, { skewX: 0, x: 0, opacity: 1, duration: 0.08 });
-    };
-
-    let glitchInterval;
-    const trigger = ScrollTrigger.create({
-      trigger: ref.current,
-      start: "top 80%",
-      onEnter: () => {
-        glitch();
-        glitchInterval = setInterval(glitch, intervalMs);
-      },
-      onLeaveBack: () => clearInterval(glitchInterval),
-    });
-
-    return () => {
-      trigger.kill();
-      clearInterval(glitchInterval);
-    };
-  }, [ref, bgRef, intervalMs]);
-}
-
 export default function Contact() {
   const ref   = useRef(null);
   const bgRef = useRef(null);
