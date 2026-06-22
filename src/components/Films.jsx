@@ -71,7 +71,8 @@ function FilmCard({ film }) {
         if (playRef.current) {
           playRef.current.style.transition = "opacity 0.4s ease, transform 0.4s ease";
           playRef.current.style.opacity = "0";
-          playRef.current.style.transform += " scale(1.2)";
+
+          playRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) scale(1.2)`;
         }
 
         setTimeout(() => {
@@ -92,7 +93,7 @@ function FilmCard({ film }) {
         <div ref={rippleRef} className="film-ripple" />
         <div
           ref={playRef}
-          className={hovered && !playing ? "film-play-follow visible" : "film-play-follow"}
+          className={`film-play-follow ${hovered && !playing ? "visible" : ""}`}
         >
           PLAY
         </div>
