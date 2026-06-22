@@ -27,27 +27,33 @@ export default function Cursor() {
     };
     animate();
 
-    const interactables = document.querySelectorAll("a, button, .film-item, .design-item");
     const expand = () => {
       cursorRef.current?.classList.add("cursor--hover");
       ringRef.current?.classList.add("cursor-ring--hover");
     };
+
     const shrink = () => {
       cursorRef.current?.classList.remove("cursor--hover");
       ringRef.current?.classList.remove("cursor-ring--hover");
     };
 
-    interactables.forEach(el => {
-      el.addEventListener("mouseenter", expand);
-      el.addEventListener("mouseleave", shrink);
-    });
+    const onOver = (e) => {
+      const target = e.target.closest(
+        "a, button, .film-item, .design-item, .study-lightbox-img, .study-lightbox-close"
+      );
+
+      if (target) {
+        expand();
+      } else {
+        shrink();
+      }
+    };
+
+    window.addEventListener("mouseover", onOver);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      interactables.forEach(el => {
-        el.removeEventListener("mouseenter", expand);
-        el.removeEventListener("mouseleave", shrink);
-      });
+      window.removeEventListener("mouseover", onOver);
     };
   }, []);
 
