@@ -97,7 +97,7 @@ export default function About() {
       <div className="about-inner">
         <div className="about-text">
           <h2>理解できないものを見つめ続けるために</h2>
-          <h2><em>   そう言っていれば、多少の格好はつく。</em></h2>
+          <h2><em>       そう言っていれば、多少の格好はつく。</em></h2>
 
           <p>文章、映像、3D、デザイン。</p>
 
