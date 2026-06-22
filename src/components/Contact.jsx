@@ -8,8 +8,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LINKS = [
   { label: "Email", href: "mailto:ryooshima2019@gmail.com" },
-  { label: "Instagram", href: "#" },
-  { label: "Twitter / X", href: "#" },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/ryo_ohi?igsh=MXdiemE4OTVpZ2d5ZA%3D%3D&utm_source=qr",
+  },
+  {
+    label: "Twitter / X",
+    href: "https://x.com/ryo_oos?s=11",
+  },
 ];
 
 function useBgGlitch(ref, bgRef, intervalMs) {
@@ -70,9 +76,15 @@ export default function Contact() {
         </p>
         <div className="contact-links">
           {LINKS.map(({ label, href }) => (
-            <a key={label} href={href} className="contact-link">
-              {label} ↗
-            </a>
+            <a
+  key={label}
+  href={href}
+  className="contact-link"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {label} ↗
+</a>
           ))}
         </div>
       </div>

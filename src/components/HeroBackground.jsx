@@ -13,9 +13,6 @@ const IMAGES = [
   "https://img.youtube.com/vi/eiKJApaONgI/maxresdefault.jpg",
   "https://img.youtube.com/vi/5bw4zVso7V0/maxresdefault.jpg",
   "https://img.youtube.com/vi/_ZI_9QVpinQ/maxresdefault.jpg",
-  "https://img.youtube.com/e/vi/8n8HY6ohzy4/maxresdefault.jpg",
-  "https://img.youtube.com/vi/8vtOJ4N0MDw/maxresdefault.jpg",
-  "https://img.youtube.com/vi/2Yt303bIdPY/maxresdefault.jpg",
 ];
 
 export default function HeroBackground({ interval = 8000 }) {
