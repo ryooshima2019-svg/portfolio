@@ -12,17 +12,14 @@ const IMAGES = [
   "/studies/ryo3d.jpg",
   "https://img.youtube.com/vi/eiKJApaONgI/maxresdefault.jpg",
   "https://img.youtube.com/vi/5bw4zVso7V0/maxresdefault.jpg",
-  "https://img.youtube.com/vi/_ZI_9QVpinQ/maxresdefault.jpg"
+  "https://img.youtube.com/vi/_ZI_9QVpinQ/maxresdefault.jpg",
 ];
 
 export default function HeroBackground({ interval = 5000 }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % IMAGES.length);
-    }, interval);
-
+    const id = setInterval(() => setIndex((i) => (i + 1) % IMAGES.length), interval);
     return () => clearInterval(id);
   }, [interval]);
 
@@ -33,7 +30,7 @@ export default function HeroBackground({ interval = 5000 }) {
           key={src}
           src={src}
           alt=""
-          className={i === index ? "hero-bg-img active" : "hero-bg-img"}
+          className={`hero-bg-img${i === index ? " active" : ""}`}
         />
       ))}
       <div className="hero-bg-overlay" />

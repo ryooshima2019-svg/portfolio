@@ -5,7 +5,7 @@
   background: #9e2a2b;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 100000;
   transform: translate(-50%, -50%);
   left: -100px;
   top: -100px;
@@ -25,7 +25,7 @@
   border: 1px solid rgba(158, 42, 43, 0.5);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 99999;
   transform: translate(-50%, -50%);
   left: -100px;
   top: -100px;
@@ -38,34 +38,10 @@
   border-color: rgba(217, 207, 200, 0.4);
 }
 
+body.lightbox-open {
+  cursor: none;
+}
+
 @media (hover: none) {
   .cursor, .cursor-ring { display: none; }
-}
-
-/* Lightbox state: keep custom cursor visible */
-body.lightbox-open {
-  cursor: none !important;
-}
-
-body.lightbox-open .cursor,
-body.lightbox-open .cursor-ring {
-  opacity: 1 !important;
-  display: block !important;
-}
-
-/* Ensure cursor is always above lightbox */
-.cursor {
-  z-index: 100000 !important;
-}
-
-.cursor-ring {
-  z-index: 99999 !important;
-}
-
-/* Reinforce visibility during lightbox */
-body.lightbox-open .cursor,
-body.lightbox-open .cursor-ring {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
 }

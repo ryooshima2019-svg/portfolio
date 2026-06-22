@@ -1,37 +1,29 @@
+// MemoryPhrase.jsx
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "./MemoryPhrase.css";
 
-function randomPos() {
-  return {
-    top: `${10 + Math.random() * 70}%`,
-    left: `${10 + Math.random() * 70}%`,
-  };
-}
-
-function randomDepth() {
-  const scale = 0.9 + Math.random() * 0.4; // 0.9 - 1.3
-  const opacity = 0.4 + Math.random() * 0.6;
-  const blur = Math.random() * 2.5;
-
-  return { scale, opacity, blur };
-}
+const randomPos   = () => ({ top: `${10 + Math.random() * 70}%`, left: `${10 + Math.random() * 70}%` });
+const randomDepth = () => ({ scale: 0.9 + Math.random() * 0.4, opacity: 0.4 + Math.random() * 0.6, blur: Math.random() * 2.5 });
 
 export default function MemoryPhrase({ texts, interval = 6000 }) {
-  const ref = useRef(null);
+  const ref      = useRef(null);
+  const rafRef   = useRef(null);
+  const timeRef  = useRef(0);
+  const depthRef = useRef(null);
+
   const [index, setIndex] = useState(0);
-  const [pos, setPos] = useState(randomPos);
-  const [depth, setDepth] = useState(randomDepth);
-  const depthRef = useRef(depth);
+  const [pos,   setPos]   = useState(randomPos);
+  const [depth, setDepth] = useState(() => {
+    const d = randomDepth();
+    depthRef.current = d;
+    return d;
+  });
 
-  const basePos = useRef(pos);
-  const timeRef = useRef(0);
+  // depthRefをstateと同期
+  useEffect(() => { depthRef.current = depth; }, [depth]);
 
-  useEffect(() => {
-    depthRef.current = depth;
-  }, [depth]);
-
-  // text switching + repositioning
+  // テキスト切り替え
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -45,19 +37,12 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
         ease: "power2.in",
         onComplete: () => {
           setIndex((i) => (i + 1) % texts.length);
-          const newPos = randomPos();
-          setPos(newPos);
-          basePos.current = newPos;
-
+          const newPos   = randomPos();
           const newDepth = randomDepth();
+          setPos(newPos);
           setDepth(newDepth);
           depthRef.current = newDepth;
-
-          gsap.to(el, {
-            opacity: 1,
-            duration: 1.2,
-            ease: "power2.out",
-          });
+          gsap.to(el, { opacity: 1, duration: 1.2, ease: "power2.out" });
         },
       });
     }, interval);
@@ -65,19 +50,15 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
     return () => clearInterval(id);
   }, [texts.length, interval]);
 
-  // subtle floating drift animation
+  // 浮遊アニメーション
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     const animate = () => {
-      const d = depthRef.current;
-
-      // normalize scale (0.9 - 1.3) -> (0 - 1)
+      const d          = depthRef.current;
       const normalized = (d.scale - 0.9) / 0.4;
-
-      // closer elements move slightly faster
-      const speed = 0.4 + normalized * 0.8;
+      const speed      = 0.4 + normalized * 0.8;
 
       timeRef.current += 0.01 * speed;
 
@@ -85,25 +66,18 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
       const driftY = Math.cos(timeRef.current * 0.8) * 1.2;
 
       el.style.transform = `translate(${driftX}px, ${driftY}px) scale(${d.scale})`;
-
-      requestAnimationFrame(animate);
+      rafRef.current = requestAnimationFrame(animate); // ← 毎フレーム更新
     };
 
-    const raf = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current); // ← 最新IDをキャンセル
   }, []);
 
   return (
     <span
       ref={ref}
       className="memory-phrase"
-      style={{
-        top: pos.top,
-        left: pos.left,
-        opacity: depth.opacity,
-        filter: `blur(${depth.blur}px)`
-      }}
+      style={{ top: pos.top, left: pos.left, opacity: depth.opacity, filter: `blur(${depth.blur}px)` }}
     >
       {texts[index]}
     </span>

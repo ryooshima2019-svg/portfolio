@@ -1,17 +1,11 @@
-.film-noise{
-  position:fixed;
-
-  top:0;
-  left:0;
-
-  width:100vw;
-  height:100vh;
-
-  pointer-events:none;
-
-  z-index:5;
-
-  opacity:0.45;
-
-  mix-blend-mode:soft-light;
+.film-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.45;
+  mix-blend-mode: soft-light;
 }

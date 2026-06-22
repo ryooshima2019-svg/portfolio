@@ -6,11 +6,11 @@ export default function FilmNoise() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx    = canvas.getContext("2d");
     let frameId;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
+      canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resize();
@@ -19,14 +19,14 @@ export default function FilmNoise() {
     const draw = () => {
       const { width: w, height: h } = canvas;
       const imageData = ctx.createImageData(w, h);
-      const data = imageData.data;
+      const data      = imageData.data;
 
       for (let i = 0; i < data.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        data[i] = v;
-        data[i + 1] = (v * 0.7) | 0;
-        data[i + 2] = (v * 0.5) | 0;
-        data[i + 3] = (Math.random() * 40) | 0;
+        const v    = (Math.random() * 255) | 0;
+        data[i]   = v;
+        data[i+1] = (v * 0.7) | 0;
+        data[i+2] = (v * 0.5) | 0;
+        data[i+3] = (Math.random() * 40) | 0;
       }
 
       ctx.putImageData(imageData, 0, 0);

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import Intro from "./components/Intro";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
