@@ -82,6 +82,7 @@ export default function Contact() {
   className="contact-link"
   target="_blank"
   rel="noopener noreferrer"
+  onClick={(e) => e.stopPropagation()}
 >
   {label} ↗
 </a>

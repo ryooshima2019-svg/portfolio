@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const TOOLS = [
   { category: "3D", items: ["Blender", "Unreal Engine"] },
   { category: "Film", items: ["Premiere Pro", "After Effects", "DaVinci Resolve"] },
+  { category: "Design", items: ["Photoshop", "Illustrator", "InDesign"] },
 ];
 
 function useAboutAnimation(ref) {
@@ -95,9 +96,31 @@ export default function About() {
       <span ref={bgRef} className="section-bg-text">About</span>
       <div className="about-inner">
         <div className="about-text">
-          <h2>飛び立つ鳥をずっと眺めていた。<em>見えなくなるまで。</em></h2>
-          <p>文章、映像、3D。</p>
-          <p>異なる素材を使いながら、同じ場所を何度も見つめている。</p>
+          <h2>
+            理解できないものを見つめ続けるために
+            <em>そう言っていれば、多少の格好はつく。</em>
+          </h2>
+
+          <p>文章、映像、3D、デザイン。</p>
+
+          <p>
+            実際はどうだ。
+            見たいように見ているだけ。
+            少なくとも、私の見ている世界でしかない。
+          </p>
+
+          <p>
+            そんな作品たちです。
+          </p>
+
+          <p>
+            デカダンスとか、実存だとか。
+            難しい言葉を羅列しては悦に入る。
+          </p>
+
+          <p>
+            少し面倒な人間になった気がする。
+          </p>
         </div>
         <div className="about-tools">
           {TOOLS.map((group) => (
