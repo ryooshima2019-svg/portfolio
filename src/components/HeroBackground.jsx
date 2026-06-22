@@ -15,7 +15,7 @@ const IMAGES = [
   "https://img.youtube.com/vi/_ZI_9QVpinQ/maxresdefault.jpg",
 ];
 
-export default function HeroBackground({ interval = 8000 }) {
+export default function HeroBackground({ interval = 5000 }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
