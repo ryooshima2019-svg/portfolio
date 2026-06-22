@@ -6,21 +6,7 @@ import { textsFullData, featuredFull } from "./textsData";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
 import { useFocusTrap } from "../hooks/useFocusTrap";
-
-const FEATURED = {
-  id: "000",
-  title: "砂漠を走る青年よ",
-  year: "2026",
-  genre: "短編小説",
-  full: featuredFull,
-};
-
-const TEXTS = [
-  { id: "001", title: "履歴書には書けない事", year: "2026", genre: "短編小説", excerpt: "静かな面接会場にどこか疎外感を感じながら、周りと同じくお行儀よく座っている。そんな自分がどうにも可笑しくて、口の端が上がるのを必死に抑えている。" },
-  { id: "002", title: "二月三十日",           year: "2026", genre: "短編小説", excerpt: "露悪は柑橘の匂いがする。手が震えている。この症状の始まりさえ知らないのに私はいつの間にやらそいつと二人で仲良く共生している。" },
-  { id: "003", title: "生きる",               year: "2026", genre: "短編小説", excerpt: "朝起きてカーテンを開く。快晴。ついてる。そう感じた。そんな感覚は久しぶりだった気がする。" },
-  { id: "004", title: "栞",                   year: "2026", genre: "短編小説", excerpt: "これは幼かった頃の話。別に仲良くなんてなかった。ただ時々見かけるだけ、彼女は私を見かけると微笑むだけ。" },
-];
+import { TEXTS, FEATURED_TEXT } from "../data/works"; 
 
 const splitParagraphs = (text) =>
   text.split("\n\n").map((para, i) => <p key={i}>{para}</p>);

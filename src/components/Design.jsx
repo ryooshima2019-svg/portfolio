@@ -3,11 +3,7 @@ import { gsap } from "gsap";
 import "./Design.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-
-const POSTERS = [
-  { id: "001", title: "萌芽展", year: "2024", desc: "展示会ポスター", src: "/images/moega.jpg" },
-  { id: "002", title: "#Bluem", year: "2025", desc: "展示会ポスター", src: "/images/bluem.jpg" },
-];
+import { STUDIES } from "../data/works";
 
 export default function Design() {
   const ref   = useRef(null);
