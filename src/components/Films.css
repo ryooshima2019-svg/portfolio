@@ -47,6 +47,7 @@
     rgba(5, 3, 5, 0.85) 0%,
     transparent 65%
   );
+  pointer-events: none;
 }
 
 .film-play-follow {
@@ -63,7 +64,7 @@
   opacity: 0;
   transition: opacity 0.35s ease, transform 0.2s ease;
   white-space: nowrap;
-  z-index: 10;
+  z-index: 9999;
 }
 
 .film-play-follow.visible {
