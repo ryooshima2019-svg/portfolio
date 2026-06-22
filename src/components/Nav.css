@@ -103,13 +103,16 @@
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
   z-index: 10000;
 }
 
 .nav-mobile.open {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
 }
 
 .nav-mobile ul {
@@ -206,11 +209,6 @@ body {
 @keyframes noiseMove {
   0% { transform: translate(0,0); }
   100% { transform: translate(-10%,10%); }
-}
-
-body.menu-open #root {
-  filter: blur(1px);
-  transition: filter 0.45s ease;
 }
 
 body.menu-open {
