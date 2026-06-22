@@ -61,12 +61,14 @@ const closeMenu = () => {
 };
 
   const toggleMenu = () => (menuOpen ? closeMenu() : openMenu());
-
+  
   const handleClick = (e, id) => {
-    e.preventDefault();
+  e.preventDefault();
+  if (menuOpen) closeMenu();
+  requestAnimationFrame(() => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    if (menuOpen) closeMenu();
-  };
+  });
+};
 
   return (
     <nav className={`nav${scrolled ? " nav--scrolled" : ""}`}>

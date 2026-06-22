@@ -96,23 +96,19 @@
   position: fixed;
   inset: 0;
   background: rgba(5, 3, 5, 0.92);
-  overflow: hidden;
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  transition: opacity 0.35s ease;
   z-index: 10000;
 }
 
 .nav-mobile.open {
   opacity: 1;
   pointer-events: auto;
-  visibility: visible;
-  transition: opacity 0.35s ease, visibility 0s linear 0s;
 }
 
 .nav-mobile ul {
