@@ -41,3 +41,14 @@
 @media (hover: none) {
   .cursor, .cursor-ring { display: none; }
 }
+
+/* Lightbox state: keep custom cursor visible */
+body.lightbox-open {
+  cursor: none !important;
+}
+
+body.lightbox-open .cursor,
+body.lightbox-open .cursor-ring {
+  opacity: 1 !important;
+  display: block !important;
+}

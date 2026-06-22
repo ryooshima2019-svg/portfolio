@@ -109,6 +109,18 @@ export default function Studies() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
+    if (selectedImage) {
+      document.body.classList.add("lightbox-open");
+    } else {
+      document.body.classList.remove("lightbox-open");
+    }
+
+    return () => {
+      document.body.classList.remove("lightbox-open");
+    };
+  }, [selectedImage]);
+
+  useEffect(() => {
     const onKeyDown = (e) => {
       if (!selectedImage) return;
 
