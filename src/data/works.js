@@ -33,10 +33,3 @@ export const TEXTS = [
   { id: "003", title: "生きる",               year: "2026", genre: "短編小説", excerpt: "朝起きてカーテンを開く。快晴。ついてる。そう感じた。そんな感覚は久しぶりだった気がする。" },
   { id: "004", title: "栞",                   year: "2026", genre: "短編小説", excerpt: "これは幼かった頃の話。別に仲良くなんてなかった。ただ時々見かけるだけ、彼女は私を見かけると微笑むだけ。" },
 ];
-
-export const FEATURED_TEXT = {
-  id: "000",
-  title: "砂漠を走る青年よ",
-  year: "2026",
-  genre: "短編小説",
-};
