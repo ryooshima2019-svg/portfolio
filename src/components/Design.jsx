@@ -57,7 +57,7 @@ export default function Design() {
 
   return (
     <section id="design" ref={ref}>
-      <MemoryPhrase texts={["it took shape.", "almost finished.", "still unnamed."]} top="40%" left="65%" rotate={-2} interval={4500} />
+      <MemoryPhrase texts={["it took shape.", "almost finished.", "still unnamed."]} top="40%" left="65%" rotate={-2} interval={5500} />
       <div className="section-tag">Design</div>
       <span ref={bgRef} className="section-bg-text">Design</span>
       <div className="design-grid">

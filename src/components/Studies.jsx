@@ -111,7 +111,7 @@ export default function Studies() {
 
   return (
     <section id="studies" ref={ref}>
-      <MemoryPhrase texts={["just practicing.", "not yet done.", "trying again."]} top="70%" left="20%" rotate={5} interval={4900} />
+      <MemoryPhrase texts={["just practicing.", "not yet done.", "trying again."]} top="70%" left="20%" rotate={5} interval={5900} />
       <div className="section-tag">Studies</div>
       <span ref={bgRef} className="section-bg-text">Studies</span>
       <div className="studies-grid">

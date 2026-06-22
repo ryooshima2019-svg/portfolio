@@ -81,7 +81,7 @@ export default function Texts() {
 
   return (
     <section id="texts" ref={ref}>
-      <MemoryPhrase texts={["I wrote it down.", "the words stayed.", "unfinished, still."]} top="60%" left="8%" rotate={-4} interval={4700} />
+      <MemoryPhrase texts={["I wrote it down.", "the words stayed.", "unfinished, still."]} top="60%" left="8%" rotate={-4} interval={5700} />
       <div className="section-tag">Texts</div>
       <span ref={bgRef} className="section-bg-text">Texts</span>
 
