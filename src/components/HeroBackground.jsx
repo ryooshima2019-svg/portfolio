@@ -1,14 +1,3 @@
-useEffect(() => {
-  if (selectedImage) {
-    document.body.classList.add("lightbox-open");
-  } else {
-    document.body.classList.remove("lightbox-open");
-  }
-
-  return () => {
-    document.body.classList.remove("lightbox-open");
-  };
-}, [selectedImage]);
 import { useEffect, useState } from "react";
 import "./HeroBackground.css";
 
