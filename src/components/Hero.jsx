@@ -70,13 +70,12 @@ export default function Hero() {
   return (
     <section id="hero" className="hero">
       <HeroBackground />
-      <div className="hero-memory">I remember.</div>
       <div ref={innerRef} className="hero-inner">
         <h1 ref={titleRef} className="hero-title">
           <span className="line">理解できないものを</span>
           <span className="line"><em>見つめ続けるために</em></span>
         </h1>
-        <p ref={descRef} className="hero-desc">Ryo Oshima — 文章・映像・3D</p>
+        <p ref={descRef} className="hero-desc">Ryo Oshima — 文章・映像・3D・デザイン</p>
       </div>
       <div className="hero-scroll">
         <span>scroll</span>
