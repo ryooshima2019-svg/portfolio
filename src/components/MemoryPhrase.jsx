@@ -11,6 +11,7 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
   const rafRef   = useRef(null);
   const timeRef  = useRef(0);
   const depthRef = useRef(null);
+  const activeRef = useRef(false); // 表示中かどうか
 
   const [index, setIndex] = useState(0);
   const [pos,   setPos]   = useState(randomPos);
@@ -20,7 +21,6 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
     return d;
   });
 
-  // depthRefをstateと同期
   useEffect(() => { depthRef.current = depth; }, [depth]);
 
   // テキスト切り替え
@@ -37,9 +37,8 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
         ease: "power2.in",
         onComplete: () => {
           setIndex((i) => (i + 1) % texts.length);
-          const newPos   = randomPos();
           const newDepth = randomDepth();
-          setPos(newPos);
+          setPos(randomPos());
           setDepth(newDepth);
           depthRef.current = newDepth;
           gsap.to(el, { opacity: 1, duration: 1.2, ease: "power2.out" });
@@ -50,27 +49,39 @@ export default function MemoryPhrase({ texts, interval = 6000 }) {
     return () => clearInterval(id);
   }, [texts.length, interval]);
 
-  // 浮遊アニメーション
+  // IntersectionObserverでRAFを制御
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
+    const observer = new IntersectionObserver(
+      ([entry]) => { activeRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(el);
+
     const animate = () => {
-      const d          = depthRef.current;
-      const normalized = (d.scale - 0.9) / 0.4;
-      const speed      = 0.4 + normalized * 0.8;
+      if (activeRef.current) {
+        const d          = depthRef.current;
+        const normalized = (d.scale - 0.9) / 0.4;
+        const speed      = 0.4 + normalized * 0.8;
 
-      timeRef.current += 0.01 * speed;
+        timeRef.current += 0.01 * speed;
 
-      const driftX = Math.sin(timeRef.current) * 1.2;
-      const driftY = Math.cos(timeRef.current * 0.8) * 1.2;
+        const driftX = Math.sin(timeRef.current) * 1.2;
+        const driftY = Math.cos(timeRef.current * 0.8) * 1.2;
 
-      el.style.transform = `translate(${driftX}px, ${driftY}px) scale(${d.scale})`;
-      rafRef.current = requestAnimationFrame(animate); // ← 毎フレーム更新
+        el.style.transform = `translate(${driftX}px, ${driftY}px) scale(${d.scale})`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
     };
 
     rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current); // ← 最新IDをキャンセル
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      observer.disconnect();
+    };
   }, []);
 
   return (

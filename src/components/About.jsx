@@ -1,11 +1,8 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./About.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TOOLS = [
   { category: "3D",     items: ["Blender", "Unreal Engine"] },

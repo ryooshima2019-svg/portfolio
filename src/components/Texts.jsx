@@ -1,13 +1,11 @@
 // Texts.jsx
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Texts.css";
 import { textsFullData, featuredFull } from "./textsData";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 const FEATURED = {
   id: "000",
@@ -28,9 +26,12 @@ const splitParagraphs = (text) =>
   text.split("\n\n").map((para, i) => <p key={i}>{para}</p>);
 
 function TextModal({ modal, onClose }) {
+  const modalRef = useRef(null);
+  useFocusTrap(modalRef, !!modal);
+
   return (
     <div className="text-modal-overlay" onClick={onClose}>
-      <div className="text-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="text-modal" ref={modalRef} onClick={(e) => e.stopPropagation()}>
         <div className="text-modal-header">
           <div>
             <div className="text-modal-title">{modal.title}</div>
@@ -55,7 +56,6 @@ export default function Texts() {
 
   useBgGlitch(ref, bgRef, 5500);
 
-  // テキスト入場アニメーション
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -69,15 +69,13 @@ export default function Texts() {
     return () => tweens.forEach((t) => t.scrollTrigger?.kill());
   }, []);
 
-  // モーダルのbodyスクロール制御
   useEffect(() => {
     document.body.style.overflow = modal ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [modal]);
 
-  const openModal  = (text) => setModal({ ...text, full: textsFullData[text.id] || "" });
-  const closeModal = () => setModal(null);
-
+  const openModal      = (text) => setModal({ ...text, full: textsFullData[text.id] || "" });
+  const closeModal     = () => setModal(null);
   const toggleFeatured = () => {
     if (featuredOpen) {
       setFeaturedOpen(false);
@@ -101,9 +99,7 @@ export default function Texts() {
         <div className="text-featured-title">{FEATURED.title}</div>
         <div className="text-featured-meta">{FEATURED.year} · {FEATURED.genre}</div>
         {featuredOpen && FEATURED.full && (
-          <div className="text-featured-body">
-            {splitParagraphs(FEATURED.full)}
-          </div>
+          <div className="text-featured-body">{splitParagraphs(FEATURED.full)}</div>
         )}
         <button className="text-expand" onClick={toggleFeatured}>
           {featuredOpen ? "閉じる" : "全文を読む"}

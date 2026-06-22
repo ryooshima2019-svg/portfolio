@@ -1,11 +1,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Design.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const POSTERS = [
   { id: "001", title: "萌芽展", year: "2024", desc: "展示会ポスター", src: "/images/moega.jpg" },

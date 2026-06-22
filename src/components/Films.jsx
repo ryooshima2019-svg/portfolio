@@ -1,12 +1,9 @@
 // Films.jsx
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Films.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const FILMS = [
   { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg" },
