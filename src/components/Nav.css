@@ -221,13 +221,6 @@
   animation: noiseMove 0.6s steps(2) infinite;
 }
 
-/* =========================
-   GLOBAL UTILITIES
-========================= */
 body {
   overflow-x: hidden;
-}
-
-body.menu-open {
-  overflow: hidden;
 }
