@@ -60,8 +60,16 @@ const closeMenu = () => {
   setMenuOpen(false);
 };
 
-  const toggleMenu = () => (menuOpen ? closeMenu() : openMenu());
-  
+const toggleMenu = () => {
+  console.log("toggleMenu clicked, current state:", menuOpen);
+
+  if (menuOpen) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+};
+
   const handleClick = (e, id) => {
   e.preventDefault();
   if (menuOpen) closeMenu();
@@ -72,7 +80,16 @@ const closeMenu = () => {
 
   return (
     <nav className={`nav${scrolled ? " nav--scrolled" : ""}`}>
-      <button className="nav-hamburger" onClick={toggleMenu} aria-label="Toggle menu">
+      <button
+        type="button"
+        className="nav-hamburger"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleMenu();
+        }}
+        aria-label="Toggle menu"
+      >
         <span /><span /><span />
       </button>
 
