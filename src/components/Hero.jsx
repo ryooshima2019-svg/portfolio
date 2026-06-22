@@ -69,7 +69,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero">
-
+      <HeroBackground />
       <div className="hero-memory">I remember.</div>
       <div ref={innerRef} className="hero-inner">
         <h1 ref={titleRef} className="hero-title">
