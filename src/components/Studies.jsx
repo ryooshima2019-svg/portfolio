@@ -54,11 +54,12 @@ function useBgGlitch(ref, bgRef, intervalMs) {
   }, [ref, bgRef, intervalMs]);
 }
 
-function StudyItem({ item, rotate, offsetY, size }) {
+function StudyItem({ item, rotate, offsetY, size, onOpenImage }) {
   const thumbRef = useRef(null);
   const labelRef = useRef(null);
   const [hovered, setHovered] = useState(false);
   const isVideo = item.type === "video";
+  const href = isVideo ? item.url : item.image;
 
   const onMouseMove = (e) => {
     const rect = thumbRef.current.getBoundingClientRect();
@@ -70,14 +71,20 @@ function StudyItem({ item, rotate, offsetY, size }) {
 
   return (
     <a
-      href={isVideo ? item.url : "#"}
-      target={isVideo ? "_blank" : undefined}
-      rel={isVideo ? "noopener noreferrer" : undefined}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`study-item study-item--${size}`}
       style={{ "--r": `${rotate}deg`, "--ty": `${offsetY}rem` }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={onMouseMove}
+      onClick={(e) => {
+        if (!isVideo) {
+          e.preventDefault();
+          onOpenImage(item);
+        }
+      }}
     >
       <div className="study-thumb" ref={thumbRef}>
         <img src={item.image} alt={item.title} className="study-thumb-img" />
@@ -98,6 +105,33 @@ export default function Studies() {
   const ref = useRef(null);
   const bgRef = useRef(null);
   useBgGlitch(ref, bgRef, 5000);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (!selectedImage) return;
+
+      if (e.key === "Escape") {
+        setSelectedImage(null);
+      }
+
+      if (e.key === "ArrowRight") {
+        const images = STUDIES.filter((s) => s.type === "image");
+        const idx = images.findIndex((s) => s.id === selectedImage.id);
+        setSelectedImage(images[(idx + 1) % images.length]);
+      }
+
+      if (e.key === "ArrowLeft") {
+        const images = STUDIES.filter((s) => s.type === "image");
+        const idx = images.findIndex((s) => s.id === selectedImage.id);
+        setSelectedImage(images[(idx - 1 + images.length) % images.length]);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedImage]);
 
   const layout = useMemo(
     () =>
@@ -122,9 +156,43 @@ export default function Studies() {
             rotate={layout[i].rotate}
             offsetY={layout[i].offsetY}
             size={layout[i].size}
+            onOpenImage={setSelectedImage}
           />
         ))}
       </div>
+
+      {selectedImage && (
+        <div
+          className="study-lightbox"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="study-lightbox-close"
+            onClick={() => setSelectedImage(null)}
+          >
+            ×
+          </button>
+
+          <div
+            className="study-lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="study-lightbox-id">
+              {selectedImage.id}
+            </div>
+
+            <img
+              className="study-lightbox-img"
+              src={selectedImage.image}
+              alt={selectedImage.title}
+            />
+
+            <div className="study-lightbox-caption">
+              just practicing.
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
