@@ -8,6 +8,7 @@ export default function Nav() {
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const sectionsRef = useRef([]);
+  const scrollYRef = useRef(0);
 
   useEffect(() => {
     sectionsRef.current = LINKS
@@ -28,33 +29,47 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+  const toggleMenu = () => {
+    if (!menuOpen) {
+      scrollYRef.current = window.scrollY;
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.width = "100%";
+
+      // NEW: background sink state
+      document.body.classList.add("menu-open");
+
+      setMenuOpen(true);
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+
+      window.scrollTo(0, scrollYRef.current);
+
+      // NEW: remove background sink state
+      document.body.classList.remove("menu-open");
+
+      setMenuOpen(false);
+    }
+  };
 
   const handleClick = (e, id) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-    // slight delay for smoother transition feel
-    setTimeout(() => {
-      setMenuOpen(false);
-    }, 150);
+    // close menu immediately using unified toggle logic
+    if (menuOpen) {
+      toggleMenu();
+    }
   };
 
   return (
     <nav className={scrolled ? "nav nav--scrolled" : "nav"}>
       <button
         className="nav-hamburger"
-        onClick={() => setMenuOpen((v) => !v)}
+        onClick={toggleMenu}
         aria-label="Toggle menu"
       >
         <span />

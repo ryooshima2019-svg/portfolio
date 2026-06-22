@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none !important;
 }
 
 :root {
@@ -19,6 +20,7 @@
 }
 
 html {
+  cursor: none !important;
   scroll-behavior: smooth;
 }
 
@@ -28,12 +30,7 @@ body {
   font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
   font-weight: 300;
   line-height: 1.8;
-  cursor: none;
-}
-
-@media (hover: none) {
-  body { cursor: auto; }
-  a, button { cursor: pointer; }
+  cursor: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

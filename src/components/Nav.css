@@ -209,3 +209,15 @@ body {
   0% { transform: translate(0,0); }
   100% { transform: translate(-10%,10%); }
 }
+
+/* Background sink effect when mobile menu is open */
+body.menu-open #root {
+  transform: scale(0.98);
+  filter: blur(2px);
+  transition: transform 0.45s ease, filter 0.45s ease;
+  transform-origin: center center;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
