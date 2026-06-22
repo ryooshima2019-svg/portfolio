@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import "./Hero.css";
 import HeroBackground from "./HeroBackground";
+import "./Hero.css";
 
 export default function Hero() {
   const titleRef = useRef(null);
@@ -25,11 +25,29 @@ export default function Hero() {
     );
 
     const onScroll = () => {
-      const y = window.scrollY;
-      if (innerRef.current) {
-        gsap.set(innerRef.current, { y: y * 0.3 });
-      }
-    };
+  const y = window.scrollY;
+
+  const ease = 1 - Math.exp(-y / 400);
+
+  if (innerRef.current) {
+    gsap.set(innerRef.current, {
+      y: ease * 60,
+    });
+  }
+
+  if (titleRef.current) {
+    gsap.set(titleRef.current, {
+      letterSpacing: `${y * 0.003}px`,
+    });
+  }
+
+  if (descRef.current) {
+    gsap.set(descRef.current, {
+      y: y * 0.12,
+      opacity: Math.max(1 - y / 500, 0),
+    });
+  }
+};
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const glitch = () => {
@@ -51,12 +69,12 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero">
+
       <div className="hero-memory">I remember.</div>
       <div ref={innerRef} className="hero-inner">
         <h1 ref={titleRef} className="hero-title">
           <span className="line">理解できないものを</span>
-          <span className="line">見つめ続けるために</span>
-          <span className="line"><em>作っている。</em></span>
+          <span className="line"><em>見つめ続けるために</em></span>
         </h1>
         <p ref={descRef} className="hero-desc">Ryo Oshima — 文章・映像・3D</p>
       </div>
