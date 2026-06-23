@@ -26,7 +26,7 @@ export default function FilmNoise() {
         data[i]   = v;
         data[i+1] = (v * 0.7) | 0;
         data[i+2] = (v * 0.5) | 0;
-        data[i+3] = (Math.random() * 40) | 0;
+        data[i+3] = (Math.random() * 25) | 0; // 40 → 25
       }
 
       ctx.putImageData(imageData, 0, 0);
@@ -34,9 +34,15 @@ export default function FilmNoise() {
     };
     draw();
 
+    const onScroll = () => {
+      canvas.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
