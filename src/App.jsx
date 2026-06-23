@@ -14,6 +14,7 @@ import Cursor from "./components/Cursor";
 import Progress from "./components/Progress";
 import Spotlight from "./components/Spotlight";
 import MemoryPhrase from "./components/MemoryPhrase";
+import DustOverlay from "./components/DustOverlay";
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
