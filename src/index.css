@@ -89,21 +89,6 @@ section:not(#hero) {
   transform: translateY(0);
 }
 
-.dust-overlay {
-  position: fixed;
-  top: -50vh;
-  left: 0;
-  width: 100vw;
-  height: 200vh;
-  background-image: url("/images/Dusty.jpeg");
-  background-size: 600px 600px;
-  background-repeat: repeat;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0.25;
-  mix-blend-mode: lighten;
-}
-
 :focus-visible {
   outline: 1px solid #9e2a2b;
   outline-offset: 3px;
