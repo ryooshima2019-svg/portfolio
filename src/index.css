@@ -91,10 +91,13 @@ section:not(#hero) {
 
 .dust-overlay {
   position: fixed;
-  inset: 0;
+  top: -50vh;
+  left: 0;
+  width: 100vw;
+  height: 200vh;
   background-image: url("/images/Dusty.jpeg");
-  background-size: cover;
-  background-position: center;
+  background-size: 600px 600px;
+  background-repeat: repeat;
   pointer-events: none;
   z-index: 5;
   opacity: 0.25;
