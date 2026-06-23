@@ -96,8 +96,8 @@ section:not(#hero) {
   background-size: cover;
   background-position: center;
   pointer-events: none;
-  z-index: 10001;
-  opacity: 0.4;
+  z-index: 5;
+  opacity: 0.2;
   mix-blend-mode: lighten;
 }
 
