@@ -22,7 +22,7 @@ export default function App() {
     <>
       <Cursor />
       <Spotlight />
-      <div className="dust-overlay" />
+      <DustOverlay />
       <Progress />
       <FilmNoise />
 

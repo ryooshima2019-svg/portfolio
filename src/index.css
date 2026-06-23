@@ -95,7 +95,6 @@ section:not(#hero) {
   background-image: url("/images/Dusty.jpeg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   pointer-events: none;
   z-index: 5;
   opacity: 0.25;
