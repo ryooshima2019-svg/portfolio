@@ -102,18 +102,18 @@ export default function Films() {
 
   useBgGlitch(ref, bgRef, 5000);
 
-  // マウスホイールで横スクロール
+// マウスホイールで横スクロール
 useEffect(() => {
-  const track = trackRef.current;
+  const track   = trackRef.current;
   const section = ref.current;
   if (!track || !section) return;
 
   const onWheel = (e) => {
-    const rect = section.getBoundingClientRect();
-    const inView = rect.top <= 0 && rect.bottom >= window.innerHeight;
-
-    if (!inView) return;
     if (!window.matchMedia("(hover: hover)").matches) return;
+
+    const rect   = section.getBoundingClientRect();
+    const inView = rect.top <= 0 && rect.bottom >= window.innerHeight;
+    if (!inView) return;
 
     const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
     const atStart = track.scrollLeft <= 0;
@@ -124,9 +124,9 @@ useEffect(() => {
     track.scrollLeft += e.deltaY * 1.2;
   };
 
-  // セクションが画面に入ったらbodyのスクロールをロック
   const observer = new IntersectionObserver(
     ([entry]) => {
+      if (!window.matchMedia("(hover: hover)").matches) return;
       if (entry.isIntersecting) {
         document.body.style.overflow = "hidden";
         document.body.style.position = "fixed";
