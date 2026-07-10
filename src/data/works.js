@@ -1,9 +1,9 @@
 // src/data/works.js
 
 export const FILMS = [
-  { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg" },
-  { id: "002", title: "悪夢",       year: "2026", url: "https://youtu.be/vjQCkwb3fzA", thumb: "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg" },
-  { id: "003", title: "人思ふ故",   year: "2026", url: "https://youtu.be/Q_gYvWubKyM", thumb: "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg" },
+  { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg", width: "60vw", offsetY: "10rem" },
+  { id: "002", title: "悪夢",       year: "2026", url: "https://youtu.be/vjQCkwb3fzA", thumb: "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg", width: "45vw", offsetY: "0rem"  },
+  { id: "003", title: "人思ふ故",   year: "2026", url: "https://youtu.be/Q_gYvWubKyM", thumb: "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg", width: "55vw", offsetY: "18rem" },
 ];
 
 export const DESIGNS = [
@@ -33,3 +33,10 @@ export const TEXTS = [
   { id: "003", title: "生きる",               year: "2026", genre: "短編小説", excerpt: "朝起きてカーテンを開く。快晴。ついてる。そう感じた。そんな感覚は久しぶりだった気がする。" },
   { id: "004", title: "栞",                   year: "2026", genre: "短編小説", excerpt: "これは幼かった頃の話。別に仲良くなんてなかった。ただ時々見かけるだけ、彼女は私を見かけると微笑むだけ。" },
 ];
+
+export const FEATURED_TEXT = {
+  id: "000",
+  title: "砂漠を走る青年よ",
+  year: "2026",
+  genre: "短編小説",
+};

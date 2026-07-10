@@ -1,9 +1,12 @@
 // Films.jsx
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Films.css";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
+import { FILMS } from "../data/works";
+
 
 const FILMS = [
   { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg", offsetY: "8rem",  width: "38vw" },
@@ -102,60 +105,33 @@ export default function Films() {
 
   useBgGlitch(ref, bgRef, 5000);
 
-// マウスホイールで横スクロール
-useEffect(() => {
-  const track   = trackRef.current;
-  const section = ref.current;
-  if (!track || !section) return;
-
-  const onWheel = (e) => {
+  // 横スクロール + ピン留め
+  useEffect(() => {
+    const track   = trackRef.current;
+    const section = ref.current;
+    if (!track || !section) return;
     if (!window.matchMedia("(hover: hover)").matches) return;
 
-    const rect   = section.getBoundingClientRect();
-    const inView = rect.top <= 0 && rect.bottom >= window.innerHeight;
-    if (!inView) return;
+    // DOMが確定してからtotalScrollを計算
+    const ctx = gsap.context(() => {
+      const totalScroll = track.scrollWidth - track.clientWidth;
 
-    const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-    const atStart = track.scrollLeft <= 0;
+      gsap.to(track, {
+        scrollLeft: totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "center center",
+          end: () => `+=${totalScroll}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+    }, section);
 
-    if ((atEnd && e.deltaY > 0) || (atStart && e.deltaY < 0)) return;
-
-    e.preventDefault();
-    track.scrollLeft += e.deltaY * 1.2;
-  };
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!window.matchMedia("(hover: hover)").matches) return;
-      if (entry.isIntersecting) {
-        document.body.style.overflow = "hidden";
-        document.body.style.position = "fixed";
-        document.body.style.width    = "100%";
-        document.body.style.top      = `-${window.scrollY}px`;
-      } else {
-        const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
-        document.body.style.overflow = "";
-        document.body.style.position = "";
-        document.body.style.width    = "";
-        document.body.style.top      = "";
-        window.scrollTo(0, scrollY);
-      }
-    },
-    { threshold: 1.0 }
-  );
-
-  observer.observe(section);
-  window.addEventListener("wheel", onWheel, { passive: false });
-
-  return () => {
-    observer.disconnect();
-    window.removeEventListener("wheel", onWheel);
-    document.body.style.overflow = "";
-    document.body.style.position = "";
-    document.body.style.width    = "";
-    document.body.style.top      = "";
-  };
-}, []);
+    return () => ctx.revert();
+  }, []);
 
   // 入場アニメーション
   useEffect(() => {
