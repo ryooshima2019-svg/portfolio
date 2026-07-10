@@ -6,9 +6,9 @@ import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
 
 const FILMS = [
-  { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg" },
-  { id: "002", title: "悪夢",       year: "2026", url: "https://youtu.be/vjQCkwb3fzA", thumb: "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg" },
-  { id: "003", title: "人思ふ故",   year: "2026", url: "https://youtu.be/Q_gYvWubKyM", thumb: "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg" },
+  { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg", offsetY: "8rem",  width: "38vw" },
+  { id: "002", title: "悪夢",       year: "2026", url: "https://youtu.be/vjQCkwb3fzA", thumb: "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg", offsetY: "0rem",  width: "28vw" },
+  { id: "003", title: "人思ふ故",   year: "2026", url: "https://youtu.be/Q_gYvWubKyM", thumb: "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg", offsetY: "14rem", width: "34vw" },
 ];
 
 function FilmCard({ film }) {
@@ -46,14 +46,12 @@ function FilmCard({ film }) {
     e.preventDefault();
     setPlaying(true);
 
-    // ripple
     if (rippleRef.current) {
       rippleRef.current.classList.remove("active");
       void rippleRef.current.offsetWidth;
       rippleRef.current.classList.add("active");
     }
 
-    // play label fade out
     if (playRef.current) {
       playRef.current.style.transition = "opacity 0.4s ease, transform 0.4s ease";
       playRef.current.style.opacity    = "0";
@@ -74,6 +72,7 @@ function FilmCard({ film }) {
       href={film.url}
       target="_blank"
       rel="noopener noreferrer"
+      style={{ marginTop: film.offsetY, width: film.width }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={onMouseMove}
@@ -83,7 +82,7 @@ function FilmCard({ film }) {
         <img src={film.thumb} alt={film.title} className="film-thumb-img" />
         <div className="film-thumb-overlay" />
         <div ref={rippleRef} className="film-ripple" />
-        <div ref={playRef} className={`film-play-follow ${hovered && !playing ? "visible" : ""}`}>
+        <div ref={playRef} className={`film-play-follow${hovered && !playing ? " visible" : ""}`}>
           PLAY
         </div>
         <div className="film-id">{film.id}</div>
@@ -97,25 +96,40 @@ function FilmCard({ film }) {
 }
 
 export default function Films() {
-  const ref   = useRef(null);
-  const bgRef = useRef(null);
+  const ref      = useRef(null);
+  const bgRef    = useRef(null);
+  const trackRef = useRef(null);
 
   useBgGlitch(ref, bgRef, 5000);
 
-  // カード入場アニメーション
+  // マウスホイールで横スクロール
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const onWheel = (e) => {
+      e.preventDefault();
+      track.scrollLeft += e.deltaY * 1.2;
+    };
+
+    track.addEventListener("wheel", onWheel, { passive: false });
+    return () => track.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // 入場アニメーション
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const tween = gsap.fromTo(
       el.querySelectorAll(".film-item"),
-      { y: 60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out",
         scrollTrigger: { trigger: el, start: "top 70%" } }
     );
     return () => tween.scrollTrigger?.kill();
   }, []);
 
-  // bgTextパララックス（Films固有）
+  // bgTextパララックス
   useEffect(() => {
     const el = bgRef.current;
     if (!el) return;
@@ -136,7 +150,7 @@ export default function Films() {
       <div className="section-tag">Films</div>
       <span ref={bgRef} className="section-bg-text">Films</span>
 
-      <div className="films-grid">
+      <div className="films-track" ref={trackRef}>
         {FILMS.map((film) => <FilmCard key={film.id} film={film} />)}
       </div>
     </section>
