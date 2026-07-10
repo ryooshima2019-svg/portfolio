@@ -61,6 +61,7 @@
 
 .tool-list {
   width: 220px;
+  margin-left: auto;
   flex-shrink: 0;
   user-select: none;
 }
