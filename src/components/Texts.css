@@ -19,8 +19,24 @@
   font-weight: 300;
   font-style: italic;
   line-height: 1.5;
-  color: #d9cfc8;
   margin-bottom: 2rem;
+
+  background-image: linear-gradient(
+    to right,
+    #9e2a2b 0%,
+    #9e2a2b 50%,
+    #d9cfc8 50%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.8s ease;
+}
+
+.text-featured:hover .text-featured-excerpt {
+  background-position: 0% 0;
 }
 
 .text-featured-foot {
