@@ -8,12 +8,6 @@ import { useBgGlitch } from "../hooks/useGlitch";
 import { FILMS } from "../data/works";
 
 
-const FILMS = [
-  { id: "001", title: "嬰児の嘆き", year: "2026", url: "https://youtu.be/7UFpii8zzQc", thumb: "https://img.youtube.com/vi/7UFpii8zzQc/maxresdefault.jpg", offsetY: "8rem",  width: "38vw" },
-  { id: "002", title: "悪夢",       year: "2026", url: "https://youtu.be/vjQCkwb3fzA", thumb: "https://img.youtube.com/vi/vjQCkwb3fzA/maxresdefault.jpg", offsetY: "0rem",  width: "28vw" },
-  { id: "003", title: "人思ふ故",   year: "2026", url: "https://youtu.be/Q_gYvWubKyM", thumb: "https://img.youtube.com/vi/Q_gYvWubKyM/maxresdefault.jpg", offsetY: "14rem", width: "34vw" },
-];
-
 function FilmCard({ film }) {
   const thumbRef  = useRef(null);
   const playRef   = useRef(null);
