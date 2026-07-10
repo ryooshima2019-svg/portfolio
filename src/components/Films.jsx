@@ -103,19 +103,24 @@ export default function Films() {
   useBgGlitch(ref, bgRef, 5000);
 
   // マウスホイールで横スクロール
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
+useEffect(() => {
+  const track = trackRef.current;
+  if (!track) return;
 
-    const onWheel = (e) => {
-      e.preventDefault();
-      track.scrollLeft += e.deltaY * 1.2;
-    };
+  const onWheel = (e) => {
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    const atStart = track.scrollLeft <= 0;
 
-    track.addEventListener("wheel", onWheel, { passive: false });
-    return () => track.removeEventListener("wheel", onWheel);
-  }, []);
+    // 右端に着いて下にスクロール、または左端に着いて上にスクロールは縦に渡す
+    if ((atEnd && e.deltaY > 0) || (atStart && e.deltaY < 0)) return;
 
+    e.preventDefault();
+    track.scrollLeft += e.deltaY * 1.2;
+  };
+
+  track.addEventListener("wheel", onWheel, { passive: false });
+  return () => track.removeEventListener("wheel", onWheel);
+}, []);
   // 入場アニメーション
   useEffect(() => {
     const el = ref.current;
