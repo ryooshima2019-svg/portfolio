@@ -105,22 +105,58 @@ export default function Films() {
   // マウスホイールで横スクロール
 useEffect(() => {
   const track = trackRef.current;
-  if (!track) return;
+  const section = ref.current;
+  if (!track || !section) return;
 
   const onWheel = (e) => {
-    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    const rect = section.getBoundingClientRect();
+    const inView = rect.top <= 0 && rect.bottom >= window.innerHeight;
+
+    if (!inView) return;
+    if (!window.matchMedia("(hover: hover)").matches) return;
+
+    const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
     const atStart = track.scrollLeft <= 0;
 
-    // 右端に着いて下にスクロール、または左端に着いて上にスクロールは縦に渡す
     if ((atEnd && e.deltaY > 0) || (atStart && e.deltaY < 0)) return;
 
     e.preventDefault();
     track.scrollLeft += e.deltaY * 1.2;
   };
 
-  track.addEventListener("wheel", onWheel, { passive: false });
-  return () => track.removeEventListener("wheel", onWheel);
+  // セクションが画面に入ったらbodyのスクロールをロック
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        document.body.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.width    = "100%";
+        document.body.style.top      = `-${window.scrollY}px`;
+      } else {
+        const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.width    = "";
+        document.body.style.top      = "";
+        window.scrollTo(0, scrollY);
+      }
+    },
+    { threshold: 1.0 }
+  );
+
+  observer.observe(section);
+  window.addEventListener("wheel", onWheel, { passive: false });
+
+  return () => {
+    observer.disconnect();
+    window.removeEventListener("wheel", onWheel);
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.width    = "";
+    document.body.style.top      = "";
+  };
 }, []);
+
   // 入場アニメーション
   useEffect(() => {
     const el = ref.current;
