@@ -6,7 +6,14 @@ import { textsFullData, featuredFull } from "./textsData";
 import MemoryPhrase from "./MemoryPhrase";
 import { useBgGlitch } from "../hooks/useGlitch";
 import { useFocusTrap } from "../hooks/useFocusTrap";
-import { TEXTS } from "../data/works"; 
+import { TEXTS } from "../data/works";
+
+const FEATURED = {
+  title: "砂漠を走る青年よ",
+  year:  "2026",
+  genre: "短編小説",
+  full:  featuredFull,
+};
 
 const splitParagraphs = (text) =>
   text.split("\n\n").map((para, i) => <p key={i}>{para}</p>);
@@ -40,8 +47,6 @@ export default function Texts() {
   const [modal,        setModal]        = useState(null);
   const [featuredOpen, setFeaturedOpen] = useState(false);
 
-  const FEATURED = textsFullData.FEATURED;
-
   useBgGlitch(ref, bgRef, 5500);
 
   useEffect(() => {
@@ -49,9 +54,9 @@ export default function Texts() {
     if (!el) return;
     const tweens = Array.from(el.querySelectorAll(".text-piece")).map((piece) =>
       gsap.fromTo(piece,
-        { x: -30, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: piece, start: "top 80%" } }
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: piece, start: "top 85%" } }
       )
     );
     return () => tweens.forEach((t) => t.scrollTrigger?.kill());
@@ -62,8 +67,9 @@ export default function Texts() {
     return () => { document.body.style.overflow = ""; };
   }, [modal]);
 
-  const openModal      = (text) => setModal({ ...text, full: textsFullData[text.id] || "" });
-  const closeModal     = () => setModal(null);
+  const openModal  = (text) => setModal({ ...text, full: textsFullData[text.id] || "" });
+  const closeModal = () => setModal(null);
+
   const toggleFeatured = () => {
     if (featuredOpen) {
       setFeaturedOpen(false);
@@ -82,27 +88,36 @@ export default function Texts() {
       <div className="section-tag">Texts</div>
       <span ref={bgRef} className="section-bg-text">Texts</span>
 
-      <div className="text-featured">
-        <div className="text-featured-label">Featured</div>
-        <div className="text-featured-title">{FEATURED.title}</div>
-        <div className="text-featured-meta">{FEATURED.year} · {FEATURED.genre}</div>
+      {/* Featured - 大きく扱う */}
+      <div className="text-featured" onClick={toggleFeatured}>
+        <p className="text-featured-excerpt">
+          ジンを手元に執筆する。それが私の趣味だった。<br />
+          高尚ぶるのが上手な私。
+        </p>
+        <div className="text-featured-foot">
+          <span className="text-featured-title">{FEATURED.title}</span>
+          <span className="text-featured-meta">{FEATURED.year} · {FEATURED.genre}</span>
+        </div>
         {featuredOpen && FEATURED.full && (
-          <div className="text-featured-body">{splitParagraphs(FEATURED.full)}</div>
+          <div className="text-featured-body" onClick={(e) => e.stopPropagation()}>
+            {splitParagraphs(FEATURED.full)}
+            <button className="text-close" onClick={toggleFeatured}>閉じる</button>
+          </div>
         )}
-        <button className="text-expand" onClick={toggleFeatured}>
-          {featuredOpen ? "閉じる" : "全文を読む"}
-        </button>
       </div>
 
+      {/* テキストリスト - 抜粋が先、タイトルは後 */}
       <div className="text-list">
         {TEXTS.map((t) => (
-          <div key={t.id} className="text-piece">
-            <div className="text-number">{t.id}</div>
-            <div className="text-body">
-              <div className="text-title">{t.title}</div>
-              <div className="text-excerpt"><p>{t.excerpt}</p></div>
-              <button className="text-expand" onClick={() => openModal(t)}>続きを読む</button>
-              <div className="text-year">{t.year} · {t.genre}</div>
+          <div
+            key={t.id}
+            className="text-piece"
+            onClick={() => openModal(t)}
+          >
+            <p className="text-excerpt">{t.excerpt}</p>
+            <div className="text-foot">
+              <span className="text-title">{t.title}</span>
+              <span className="text-meta">{t.year} · {t.genre}</span>
             </div>
           </div>
         ))}
