@@ -61,24 +61,24 @@ export default function About() {
   useAboutAnimation(ref);
   useBgGlitch(ref, bgRef, 7000);
 
-  // ツールをスクロールで薄くする
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  // ツールをスクロールで薄くするuseEffectを変更
+useEffect(() => {
+  const el = ref.current;
+  if (!el) return;
 
-    const tween = gsap.to(el.querySelectorAll(".tool-float"), {
-      opacity: 0,
-      ease: "none",
-      scrollTrigger: {
-        trigger: el,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-      },
-    });
+  const tween = gsap.to(el.querySelectorAll(".tool-float"), {
+    opacity: 0,
+    ease: "none",
+    scrollTrigger: {
+      trigger: el,
+      start: "center top",    // ← セクションが画面上部に来てから
+      end: "bottom top",   // ← セクションが完全に抜けるまで
+      scrub: 2,
+    },
+  });
 
-    return () => tween.scrollTrigger?.kill();
-  }, []);
+  return () => tween.scrollTrigger?.kill();
+}, []);
 
   return (
     <section id="about" ref={ref}>
