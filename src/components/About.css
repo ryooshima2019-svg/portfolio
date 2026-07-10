@@ -1,10 +1,10 @@
 /* About.css */
 #about {
-  padding: 8rem 4rem;
+  padding: 10rem 8vw 6rem;
 }
 
 .about-inner {
-  max-width: 52rem;
+  max-width: 42rem;
   position: relative;
   z-index: 2;
 }
@@ -26,7 +26,7 @@
 .about-text p {
   color: #a89a8e;
   font-size: 1rem;
-  line-height: 2;
+  line-height: 1.7;
   margin-bottom: 0.6rem;
 }
 
@@ -45,4 +45,51 @@
 @media (max-width: 768px) {
   #about { padding: 5rem 1.5rem; }
   .tool-float { display: none; }
+}
+
+.about-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7rem;
+}
+
+.about-text {
+  flex: 1;
+  max-width: 42rem;
+}
+
+.tool-list {
+  width: 220px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.tool-group:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.tool-category {
+  display: block;
+  margin-bottom: .9rem;
+
+  font-size: .65rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,.28);
+}
+
+.tool-item {
+  margin: .35rem 0;
+
+  font-size: .9rem;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.55);
+
+  transition: color .3s ease;
+}
+
+.tool-item:hover {
+  color: rgba(255,255,255,.9);
 }
