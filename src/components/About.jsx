@@ -94,6 +94,7 @@ export default function About() {
         </div>
 
         <aside className="tool-list">
+          <div className="tool-title">TOOLS</div>
           {TOOLS.map(({ category, items }) => (
             <div key={category} className="tool-group">
               <span className="tool-category">{category}</span>
