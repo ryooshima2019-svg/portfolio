@@ -1,3 +1,4 @@
+// About.jsx
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./About.css";
@@ -10,10 +11,23 @@ const TOOLS = [
   { category: "Design", items: ["Photoshop", "Illustrator", "InDesign"] },
 ];
 
+const ALL_TOOLS = TOOLS.flatMap((g) => g.items);
+
+// 固定のランダム位置（リロードで変わらない）
+const TOOL_POSITIONS = [
+  { top: "12%",  left: "60%" },
+  { top: "28%",  left: "72%" },
+  { top: "18%",  left: "85%" },
+  { top: "45%",  left: "58%" },
+  { top: "60%",  left: "78%" },
+  { top: "35%",  left: "90%" },
+  { top: "72%",  left: "65%" },
+  { top: "55%",  left: "95%" },
+];
+
 const ABOUT_ANIMATIONS = [
   { selector: "h2",          from: { y: 40, opacity: 0 }, start: "top 75%" },
   { selector: "p",           from: { y: 30, opacity: 0 }, start: "top 70%", stagger: 0.15 },
-  { selector: ".tool-group", from: { y: 20, opacity: 0 }, start: "top 65%", stagger: 0.12 },
 ];
 
 function useAboutAnimation(ref) {
@@ -40,25 +54,31 @@ function useAboutAnimation(ref) {
   }, []);
 }
 
-function ToolGroup({ category, items }) {
-  return (
-    <div className="tool-group">
-      <div className="tool-category">{category}</div>
-      <div className="tool-items">
-        {items.map((item) => (
-          <div key={item} className="tool-item">{item}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function About() {
-  const ref   = useRef(null);
-  const bgRef = useRef(null);
+  const ref    = useRef(null);
+  const bgRef  = useRef(null);
 
   useAboutAnimation(ref);
   useBgGlitch(ref, bgRef, 7000);
+
+  // ツールをスクロールで薄くする
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const tween = gsap.to(el.querySelectorAll(".tool-float"), {
+      opacity: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: el,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+      },
+    });
+
+    return () => tween.scrollTrigger?.kill();
+  }, []);
 
   return (
     <section id="about" ref={ref}>
@@ -69,6 +89,20 @@ export default function About() {
       <div className="section-tag">About</div>
       <span ref={bgRef} className="section-bg-text">About</span>
 
+      {/* 背景に散らばるツール名 */}
+      {ALL_TOOLS.map((tool, i) => (
+        <span
+          key={tool}
+          className="tool-float"
+          style={{
+            top:  TOOL_POSITIONS[i % TOOL_POSITIONS.length].top,
+            left: TOOL_POSITIONS[i % TOOL_POSITIONS.length].left,
+          }}
+        >
+          {tool}
+        </span>
+      ))}
+
       <div className="about-inner">
         <div className="about-text">
           <h2>理解できないものを見つめ続けるために</h2>
@@ -78,10 +112,6 @@ export default function About() {
           <p>そんな作品たちです。</p>
           <p>デカダンスとか、実存だとか。難しい言葉を羅列しては悦に入る。</p>
           <p>少し面倒な人間になった気がする。</p>
-        </div>
-
-        <div className="about-tools">
-          {TOOLS.map((g) => <ToolGroup key={g.category} {...g} />)}
         </div>
       </div>
     </section>

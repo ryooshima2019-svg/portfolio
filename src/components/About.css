@@ -1,13 +1,12 @@
+/* About.css */
 #about {
   padding: 8rem 4rem;
 }
 
 .about-inner {
-  display: grid;
-  grid-template-columns: 1fr 16rem;
-  gap: 6rem;
-  align-items: start;
-  max-width: 70rem;
+  max-width: 52rem;
+  position: relative;
+  z-index: 2;
 }
 
 .about-text h2 {
@@ -29,53 +28,21 @@
   font-size: 1rem;
   line-height: 2;
   margin-bottom: 0.6rem;
-  max-width: 52rem;
 }
 
-.about-tools {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding-top: 0.5rem;
-}
-
-.tool-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.tool-category {
+.tool-float {
+  position: absolute;
   font-family: 'Space Mono', monospace;
   font-size: 0.55rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #6b0f1a;
-  margin-bottom: 0.2rem;
-}
-
-.tool-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.tool-item {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  color: #6b5a5c;
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(107, 15, 26, 0.2);
-  transition: border-color 0.3s, color 0.3s;
-}
-
-.tool-item:hover {
-  border-color: #6b0f1a;
-  color: #9e2a2b;
+  letter-spacing: 0.15em;
+  color: rgba(107, 90, 92, 0.3);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
   #about { padding: 5rem 1.5rem; }
-  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .tool-float { display: none; }
 }
